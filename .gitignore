@@ -1,0 +1,17 @@
+node_modules/
+build/
+.react-router/
+/images/
+
+.env
+.env.local
+.env.*.local
+
+hydrogen-dev.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+.DS_Store
+Thumbs.db

@@ -1,0 +1,25 @@
+{
+  "name": "strippy-hydrogen",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "shopify hydrogen dev",
+    "build": "shopify hydrogen build",
+    "preview": "shopify hydrogen preview",
+    "check": "shopify hydrogen check routes"
+  },
+  "dependencies": {
+    "@react-router/node": "7.14.0",
+    "@shopify/hydrogen": "2026.4.2",
+    "isbot": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router": "7.14.0"
+  },
+  "devDependencies": {
+    "@react-router/dev": "7.14.0",
+    "@shopify/cli": "latest",
+    "@shopify/mini-oxygen": "latest",
+    "vite": "latest"
+  }
+}
