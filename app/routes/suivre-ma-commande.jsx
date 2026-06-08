@@ -13,8 +13,26 @@ export default function SuivreCommandePage() {
   return (
     <main className="support-page">
       <header className="support-header">
+        <details className="support-menu">
+          <summary aria-label="Ouvrir le menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </summary>
+          <nav aria-label="Navigation STRIPPY">
+            <a href="/produit-strippy">Offre spéciale</a>
+            <a href="/suivre-ma-commande">Suivre ma commande</a>
+            <a href="/contact">Contact</a>
+          </nav>
+        </details>
         <a className="support-logo" href="/" aria-label="Retour a l'accueil STRIPPY">
           STRIPPY
+        </a>
+        <a className="support-cart-icon" href="/produit-strippy#panier" aria-label="Acceder au panier">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 8h12l1 13H5L6 8Z"></path>
+            <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+          </svg>
         </a>
       </header>
 

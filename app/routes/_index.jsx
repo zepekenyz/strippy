@@ -63,7 +63,7 @@ const landingMarkup = String.raw`
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-bg" aria-hidden="true">
           <picture>
-            <source media="(max-width: 640px)" srcset="/images/hero-mobile.png">
+            <source media="(max-width: 640px)" srcset="/images/hero-mobile-clean.png">
             <img src="/images/hero.png" alt="">
           </picture>
         </div>
@@ -231,15 +231,15 @@ const landingMarkup = String.raw`
           <div class="results-proof" aria-label="Résultats clients STRIPPY">
             <h3>Voyez la différence en 30 jours ou contactez notre support.</h3>
             <div class="proof-row">
-              <div class="proof-circle">98%</div>
+              <div class="proof-circle" style="--percent: 98">98%</div>
               <p><strong>Ont remarqué une peau d’apparence plus lisse</strong> et des ridules visiblement plus douces dès la première semaine.</p>
             </div>
             <div class="proof-row">
-              <div class="proof-circle">90%</div>
+              <div class="proof-circle" style="--percent: 90">90%</div>
               <p>Ont trouvé Strippy™ <strong>plus facile à garder dans leur routine</strong> que les crèmes anti-rides déjà testées.</p>
             </div>
             <div class="proof-row">
-              <div class="proof-circle">90%</div>
+              <div class="proof-circle" style="--percent: 90">90%</div>
               <p>Ont constaté <strong>une texture visiblement plus régulière</strong> après une utilisation régulière pendant la nuit.</p>
             </div>
           </div>

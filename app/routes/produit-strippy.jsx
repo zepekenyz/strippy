@@ -90,23 +90,6 @@ export default function ProductStrippyPage() {
           </div>
         </nav>
 
-        <div className="product-trust-ticker" aria-label="Preuves de confiance STRIPPY">
-          <div className="product-trust-track">
-            {[
-              'Adore par 73 000+ clientes',
-              'Garantie sans risque 99 jours',
-              'Silicone medical reutilisable',
-              'Livraison rapide suivie',
-              'Adore par 73 000+ clientes',
-              'Garantie sans risque 99 jours',
-              'Silicone medical reutilisable',
-              'Livraison rapide suivie',
-            ].map((item, index) => (
-              <span key={`${item}-${index}`}>{item}</span>
-            ))}
-          </div>
-        </div>
-
       </header>
 
       <section className="strippy-product-shell" id="produit" aria-label="Produit STRIPPY">
@@ -391,7 +374,7 @@ export default function ProductStrippyPage() {
         </h2>
 
         <div className="strippy-stat-row">
-          <div className="strippy-stat-circle">98%</div>
+          <div className="strippy-stat-circle" style={{'--percent': 98}}>98%</div>
           <p>
             Ont remarque une <strong>peau d'apparence plus lisse</strong> et des
             ridules visiblement adoucies des les premieres utilisations.
@@ -399,7 +382,7 @@ export default function ProductStrippyPage() {
         </div>
 
         <div className="strippy-stat-row">
-          <div className="strippy-stat-circle">95%</div>
+          <div className="strippy-stat-circle" style={{'--percent': 95}}>95%</div>
           <p>
             Ont trouve STRIPPY™ <strong>plus simple a utiliser</strong> que les
             routines longues a base de cremes anti-rides.
@@ -407,7 +390,7 @@ export default function ProductStrippyPage() {
         </div>
 
         <div className="strippy-stat-row">
-          <div className="strippy-stat-circle">91%</div>
+          <div className="strippy-stat-circle" style={{'--percent': 91}}>91%</div>
           <p>
             Ont rapporte des <strong>marques visiblement plus douces</strong> et
             une texture de peau plus reguliere avec une utilisation reguliere.
