@@ -732,7 +732,9 @@ export default function SkinReviewPage() {
 
         <section className="science-review-real-reviews" aria-label="Avis clientes">
           <div className="science-review-real-score">
-            <span aria-hidden="true">★★★★☆</span>
+            <span className="stars-img-wrap rating-47" aria-hidden="true">
+              <img className="stars-img" src="/images/stars-5.png" alt="" />
+            </span>
             <strong>4.7/5</strong>
             <span>(18 067+ avis)</span>
           </div>
@@ -764,7 +766,9 @@ export default function SkinReviewPage() {
           />
 
           <div className="science-review-sticky-rating">
-            <span aria-hidden="true">★★★★★</span>
+            <span className="stars-img-wrap rating-47" aria-hidden="true">
+              <img className="stars-img" src="/images/stars-5.png" alt="" />
+            </span>
             <strong>4.7/5</strong>
             <span>(18 067+ avis)</span>
           </div>

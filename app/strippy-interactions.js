@@ -10,6 +10,9 @@ const SHOPIFY_STOREFRONT_ACCESS_TOKEN =
 const SHOPIFY_API_VERSION =
   import.meta.env.VITE_SHOPIFY_API_VERSION || '2026-01';
 const SHOPIFY_VARIANT_ID = import.meta.env.VITE_SHOPIFY_VARIANT_ID;
+const SHOPIFY_CHECKOUT_DOMAIN =
+  import.meta.env.VITE_SHOPIFY_CHECKOUT_DOMAIN ||
+  import.meta.env.VITE_SHOPIFY_STORE_DOMAIN;
 
 export function connectStrippyInteractions() {
   const cleanup = [];
@@ -31,12 +34,55 @@ export function connectStrippyInteractions() {
   const countdownHours = document.querySelector('[data-countdown-hours]');
   const countdownMinutes = document.querySelector('[data-countdown-minutes]');
   const countdownSeconds = document.querySelector('[data-countdown-seconds]');
+  const menuToggle = document.querySelector('[data-menu-toggle]');
+  const siteMenu = document.querySelector('[data-site-menu]');
 
   const addListener = (target, event, handler, options) => {
     if (!target) return;
     target.addEventListener(event, handler, options);
     cleanup.push(() => target.removeEventListener(event, handler, options));
   };
+
+  const closeSiteMenu = () => {
+    if (!menuToggle || !siteMenu) return;
+
+    menuToggle.classList.remove('open');
+    siteMenu.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  };
+
+  if (menuToggle && siteMenu) {
+    addListener(menuToggle, 'click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const willOpen = !siteMenu.classList.contains('open');
+      menuToggle.classList.toggle('open', willOpen);
+      siteMenu.classList.toggle('open', willOpen);
+      menuToggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
+
+    addListener(document, 'click', (event) => {
+      if (
+        siteMenu.contains(event.target) ||
+        menuToggle.contains(event.target)
+      ) {
+        return;
+      }
+
+      closeSiteMenu();
+    });
+
+    addListener(document, 'keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeSiteMenu();
+      }
+    });
+
+    siteMenu.querySelectorAll('a').forEach((link) => {
+      addListener(link, 'click', closeSiteMenu);
+    });
+  }
 
   if (countdownHours && countdownMinutes && countdownSeconds) {
     const countdownDuration = 55 * 60 + 1;
@@ -298,6 +344,7 @@ export function connectStrippyProductPage() {
   const reviewNext = document.querySelector('[data-review-next]');
   const reviewDots = document.querySelector('[data-review-dots]');
   const addCartButtons = Array.from(document.querySelectorAll('[data-cart-add]'));
+  const primaryCartButton = document.querySelector('.strippy-product-cart[data-cart-add]');
   const stickyCart = document.querySelector('[data-product-sticky-cart]');
   const stickyCartTrigger = document.querySelector('[data-sticky-offer-trigger]');
   const cartDrawer = document.querySelector('[data-cart-drawer]');
@@ -311,6 +358,8 @@ export function connectStrippyProductPage() {
   const cartDiscount = document.querySelector('[data-cart-discount]');
   const cartTotal = document.querySelector('[data-cart-total]');
   const cartTimer = document.querySelector('[data-cart-timer]');
+  const productMenuToggle = document.querySelector('[data-product-menu-toggle]');
+  const productSiteMenu = document.querySelector('[data-product-site-menu]');
 
   const addListener = (target, event, handler, options) => {
     if (!target) return;
@@ -318,9 +367,59 @@ export function connectStrippyProductPage() {
     cleanup.push(() => target.removeEventListener(event, handler, options));
   };
 
+  const syncProductCta = () => {
+    if (!primaryCartButton) return;
+
+    const activePack = document.querySelector('.strippy-pack.active');
+    const packPrice = activePack?.getAttribute('data-pack-price') || '32,95 €';
+    const compactPrice = packPrice.replace(',95', '').replace(' ', '');
+    primaryCartButton.textContent = `🛒 Ajouter au panier • ${compactPrice}`;
+  };
+
+  const closeProductMenu = () => {
+    if (!productMenuToggle || !productSiteMenu) return;
+
+    productMenuToggle.classList.remove('open');
+    productSiteMenu.classList.remove('open');
+    productMenuToggle.setAttribute('aria-expanded', 'false');
+  };
+
+  if (productMenuToggle && productSiteMenu) {
+    addListener(productMenuToggle, 'click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const willOpen = !productSiteMenu.classList.contains('open');
+      productMenuToggle.classList.toggle('open', willOpen);
+      productSiteMenu.classList.toggle('open', willOpen);
+      productMenuToggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
+
+    addListener(document, 'click', (event) => {
+      if (
+        productSiteMenu.contains(event.target) ||
+        productMenuToggle.contains(event.target)
+      ) {
+        return;
+      }
+
+      closeProductMenu();
+    });
+
+    addListener(document, 'keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeProductMenu();
+      }
+    });
+
+    productSiteMenu.querySelectorAll('a').forEach((link) => {
+      addListener(link, 'click', closeProductMenu);
+    });
+  }
+
   const CART_STORAGE_KEY = 'strippy-cart-lines';
   let cartLines = [];
-  let cartSecondsRemaining = 79;
+  let cartSecondsRemaining = 300;
 
   const getActivePack = () =>
     packButtons.find((pack) => pack.classList.contains('active')) ||
@@ -519,7 +618,7 @@ export function connectStrippyProductPage() {
       cartTimer.textContent = `${String(minutes).padStart(2, '0')}:${String(
         seconds,
       ).padStart(2, '0')}`;
-      cartSecondsRemaining = cartSecondsRemaining > 0 ? cartSecondsRemaining - 1 : 79;
+      cartSecondsRemaining = cartSecondsRemaining > 0 ? cartSecondsRemaining - 1 : 300;
     };
 
     updateCartTimer();
@@ -569,6 +668,11 @@ export function connectStrippyProductPage() {
   });
 
   syncCart();
+  syncProductCta();
+
+  if (window.location.hash === '#panier') {
+    window.setTimeout(() => openCart(), 0);
+  }
 
   if (stickyCart && stickyCartTrigger) {
     const updateStickyCart = () => {
@@ -616,6 +720,7 @@ export function connectStrippyProductPage() {
       });
       button.classList.add('active');
       button.setAttribute('aria-checked', 'true');
+      syncProductCta();
       syncCart();
     });
   });
@@ -851,7 +956,27 @@ async function createShopifyCart(linesOrVariantId = SHOPIFY_VARIANT_ID, quantity
     );
   }
 
-  return checkoutUrl;
+  return normalizeShopifyCheckoutUrl(checkoutUrl);
+}
+
+function normalizeShopifyCheckoutUrl(checkoutUrl) {
+  if (!checkoutUrl || !SHOPIFY_CHECKOUT_DOMAIN) return checkoutUrl;
+
+  try {
+    const url = new URL(checkoutUrl);
+    const checkoutDomain = SHOPIFY_CHECKOUT_DOMAIN.replace(
+      /^https?:\/\//,
+      '',
+    ).replace(/\/$/, '');
+
+    if (url.hostname !== checkoutDomain) {
+      url.hostname = checkoutDomain;
+    }
+
+    return url.toString();
+  } catch {
+    return checkoutUrl;
+  }
 }
 
 const CART_CREATE_MUTATION = `#graphql

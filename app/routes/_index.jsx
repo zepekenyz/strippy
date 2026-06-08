@@ -5,32 +5,50 @@ const landingMarkup = String.raw`
 <div class="page">
     <!-- Sticky header with conversion CTA -->
     <header class="site-header">
-      <div class="sale-timer" aria-label="Compte à rebours promotion Strippy">
-        <span>L’offre STRIPPY se termine dans</span>
-        <span class="timer-boxes" aria-live="polite">
-          <span class="timer-box"><span data-countdown-hours>00</span><small>H</small></span>
-          <span class="timer-separator">:</span>
-          <span class="timer-box"><span data-countdown-minutes>55</span><small>MIN</small></span>
-          <span class="timer-separator">:</span>
-          <span class="timer-box"><span data-countdown-seconds>01</span><small>SEC</small></span>
-        </span>
+      <div class="promo-banner" aria-label="Promotion STRIPPY -60%">
+        <div class="promo-main">
+          <span class="promo-exclusive">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13.2 13.2 4H20v6.8L10.8 20 4 13.2Z"></path><path d="M16.5 7.5h.01"></path></svg>
+            Offre exclusive
+          </span>
+          <div class="promo-offer">
+            <span>Notre plus grande offre !</span>
+            <strong>-60%</strong>
+          </div>
+          <a class="promo-cta" href="#offre">Je profite de l'offre</a>
+          <div class="promo-limited">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 7v5l3 2"></path></svg>
+            <span>Offre limitée !</span>
+          </div>
+          <span class="timer-boxes promo-countdown" aria-live="polite">
+            <span class="timer-box"><span data-countdown-hours>00</span><small>HRS</small></span>
+            <span class="timer-separator">:</span>
+            <span class="timer-box"><span data-countdown-minutes>55</span><small>MIN</small></span>
+            <span class="timer-separator">:</span>
+            <span class="timer-box"><span data-countdown-seconds>01</span><small>SEC</small></span>
+          </span>
+        </div>
+        <div class="promo-proof">
+          <span class="promo-proof-icon" aria-hidden="true">✓</span>
+          <span>Des milliers de clientes satisfaites font déjà confiance à notre solution</span>
+          <span class="promo-stars" aria-hidden="true">★★★★★</span>
+          <strong>4,7/5</strong>
+        </div>
       </div>
-      <div class="sale-announcement">NOTRE PLUS GRANDE OFFRE : -60%</div>
       <nav class="container nav" aria-label="Navigation principale">
-        <div class="menu" aria-label="Sections">
+        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" data-menu-toggle>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="menu" aria-label="Sections" data-site-menu>
           <a href="/produit-strippy">Offre spéciale</a>
-          <a href="#livraison">Suivre ma commande</a>
-          <a href="#contact">Contact</a>
+          <a href="/suivre-ma-commande">Suivre ma commande</a>
+          <a href="/contact">Contact</a>
         </div>
         <a class="logo" href="#top" aria-label="Accueil STRIPPY">STRIPPY</a>
-        <div class="nav-actions" aria-label="Actions compte et panier">
-          <a class="nav-icon" href="#account" aria-label="Compte client">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M20 21a8 8 0 0 0-16 0"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </a>
-          <a class="nav-icon" href="#offre" aria-label="Panier">
+        <div class="nav-actions" aria-label="Panier">
+          <a class="nav-icon" href="/produit-strippy#panier" aria-label="Acceder au panier">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M6 8h12l1 13H5L6 8Z"></path>
               <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
@@ -44,35 +62,49 @@ const landingMarkup = String.raw`
       <!-- Hero: primary value proposition and product visual placeholder -->
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-bg" aria-hidden="true">
-          <img src="/images/strippy-hero-wide.png" alt="">
+          <picture>
+            <source media="(max-width: 640px)" srcset="/images/hero-mobile.png">
+            <img src="/images/hero.png" alt="">
+          </picture>
         </div>
         <div class="container hero-grid">
           <div class="hero-copy">
             <div class="hero-badge">Lauréat Prix Beauté 2025</div>
             <h1 id="hero-title">Lissez vos rides pendant votre sommeil</h1>
             <div class="rating" aria-label="Noté 4.7 sur 5 par plus de 18 067 clientes">
-              <span class="tp-stars" aria-hidden="true"><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span></span>
+              <span class="stars-img-wrap rating-47" aria-hidden="true"><img class="stars-img" src="/images/stars-5.png" alt="" /></span>
               <span>Noté 4.7/5 par 18 067+ avis</span>
             </div>
-            <p>Les patchs en silicone médical conçus pour aider à améliorer l’apparence des rides, ridules et irrégularités visibles pendant la nuit.</p>
+            <p>Le ruban en silicone médical recommandé comme alternative douce au Botox.</p>
             <div class="cta-row">
-              <a class="btn" href="#offre">Profiter des -60% <span aria-hidden="true">→</span></a>
-              <a class="btn secondary" href="#offre">En savoir plus</a>
+              <a class="btn" href="#offre">Profiter des -60% <span aria-hidden="true">&rarr;</span></a>
             </div>
             <div class="hero-guarantees" aria-label="Garanties STRIPPY">
-              <span>✓ Garantie satisfait ou remboursé 30 jours</span>
-              <span>✓ Silicone médical réutilisable</span>
-              <span>✓ Livraison suivie rapide</span>
+              <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-2.8 8.6-7 10-4.2-1.4-7-5.4-7-10V6l7-3Z"></path><path d="M9 12l2 2 4-4"></path></svg>Garantie satisfait ou remboursé 99 jours</span>
             </div>
           </div>
         </div>
       </section>
       <div class="press-strip" aria-label="Mentions presse">
-        <div class="container press-logos">
-          <span class="press-logo">VOGUE</span>
-          <span class="press-logo">BAZAAR</span>
-          <span class="press-logo small">COSMOPOLITAN</span>
-          <span class="press-logo">ELLE</span>
+        <div class="press-logos" aria-hidden="true">
+          <div class="press-logo-group">
+            <span class="press-logo">VOGUE</span>
+            <span class="press-logo">BAZAAR</span>
+            <span class="press-logo small">COSMOPOLITAN</span>
+            <span class="press-logo">ELLE</span>
+          </div>
+          <div class="press-logo-group">
+            <span class="press-logo">VOGUE</span>
+            <span class="press-logo">BAZAAR</span>
+            <span class="press-logo small">COSMOPOLITAN</span>
+            <span class="press-logo">ELLE</span>
+          </div>
+          <div class="press-logo-group">
+            <span class="press-logo">VOGUE</span>
+            <span class="press-logo">BAZAAR</span>
+            <span class="press-logo small">COSMOPOLITAN</span>
+            <span class="press-logo">ELLE</span>
+          </div>
         </div>
       </div>
 
@@ -82,56 +114,64 @@ const landingMarkup = String.raw`
             <p class="eyebrow">Avis clients vérifiés</p>
             <h2 id="reviews-title">Nos clientes en parlent mieux que nous</h2>
             <div class="reviews-score" aria-label="Excellent 4.7 sur 5, basé sur 18 067 avis clients">
-              <strong>Excellent 4.7 / 5 <span class="tp-stars" aria-hidden="true"><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span></span></strong>
-              <span>Basé sur 18 067 avis clients</span>
+              <strong>Excellent 4.7 / 5 <span class="stars-img-wrap rating-47" aria-hidden="true"><img class="stars-img" src="/images/stars-5.png" alt="" /></span></strong>
+              <span class="reviews-count-desktop">Basé sur 18 067 avis clients</span>
+              <span class="reviews-count-mobile">based on 18,067 reviews</span>
             </div>
           </div>
+          <article class="mobile-feature-review" aria-label="Avis client mis en avant">
+            <img class="stars-img" src="/images/stars-5.png" alt="5 étoiles" />
+            <h3>Saw a Dermatologist Recommend these</h3>
+            <p>Je ne voulais rien d’agressif. Les patchs sont doux, tiennent bien, et ma peau a l’air plus lisse quand je suis régulière.</p>
+            <a href="#avis" aria-label="Voir plus d'avis clients">View More</a>
+            <strong>Stacy K.</strong>
+          </article>
           <div class="reviews-carousel" aria-label="Carrousel d'avis clients">
             <div class="reviews-track" data-review-track tabindex="0">
               <article class="review-card">
-                <div class="tp-stars" aria-label="5 étoiles"><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span></div>
+                <img class="stars-img" src="/images/stars-5.png" alt="5 étoiles" />
                 <h3>Mes ridules sont beaucoup moins visibles</h3>
                 <p>Je l’utilise surtout sur le front et les petites marques du sourire. La peau paraît plus reposée le matin, sans ajouter dix étapes à ma routine.</p>
                 <div class="review-meta"><span class="review-author">Christine K.</span><span class="verified-badge">Avis vérifié</span></div>
               </article>
               <article class="review-card">
-                <div class="tp-stars" aria-label="5 étoiles"><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span></div>
+                <img class="stars-img" src="/images/stars-5.png" alt="5 étoiles" />
                 <h3>Même ma dermatologue m’a demandé ce que j’avais changé</h3>
                 <p>Je ne voulais rien d’agressif. Les patchs sont doux, tiennent bien, et ma peau a l’air plus lisse quand je suis régulière.</p>
                 <div class="review-meta"><span class="review-author">Stacy K.</span><span class="verified-badge">Avis vérifié</span></div>
               </article>
               <article class="review-card">
-                <div class="tp-stars" aria-label="5 étoiles"><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span></div>
+                <img class="stars-img" src="/images/stars-5.png" alt="5 étoiles" />
                 <h3>J’aurais dû commander sur le site officiel dès le début</h3>
                 <p>La qualité est bien meilleure que les patchs que j’avais testés ailleurs. Le toucher est agréable et le packaging fait très propre.</p>
                 <div class="review-meta"><span class="review-author">Sarah T.</span><span class="verified-badge">Avis vérifié</span></div>
               </article>
               <article class="review-card">
-                <div class="tp-stars" aria-label="5 étoiles"><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span></div>
+                <img class="stars-img" src="/images/stars-5.png" alt="5 étoiles" />
                 <h3>Simple, doux et agréable à porter</h3>
                 <p>Je le pose après avoir nettoyé ma peau et je l’oublie. Pas de sensation gênante pendant la nuit, c’est exactement ce que je cherchais.</p>
                 <div class="review-meta"><span class="review-author">Anaïs M.</span><span class="verified-badge">Avis vérifié</span></div>
               </article>
               <article class="review-card">
-                <div class="tp-stars" aria-label="5 étoiles"><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span></div>
+                <img class="stars-img" src="/images/stars-5.png" alt="5 étoiles" />
                 <h3>Je l’utilise tous les soirs</h3>
                 <p>C’est devenu un petit réflexe. Je trouve que les zones ciblées paraissent plus souples, surtout quand je dors peu.</p>
                 <div class="review-meta"><span class="review-author">Claire B.</span><span class="verified-badge">Avis vérifié</span></div>
               </article>
               <article class="review-card">
-                <div class="tp-stars" aria-label="5 étoiles"><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span></div>
+                <img class="stars-img" src="/images/stars-5.png" alt="5 étoiles" />
                 <h3>Très bonne alternative aux routines compliquées</h3>
                 <p>Je n’ai pas la patience pour multiplier les soins. Là, c’est rapide, ciblé, et facile à garder dans le temps.</p>
                 <div class="review-meta"><span class="review-author">Julie R.</span><span class="verified-badge">Avis vérifié</span></div>
               </article>
               <article class="review-card">
-                <div class="tp-stars" aria-label="5 étoiles"><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span></div>
+                <img class="stars-img" src="/images/stars-5.png" alt="5 étoiles" />
                 <h3>Ma peau paraît plus lisse au réveil</h3>
                 <p>J’aime surtout l’effet au réveil sur les ridules de sommeil. C’est discret, confortable et ça s’intègre facilement.</p>
                 <div class="review-meta"><span class="review-author">Marion L.</span><span class="verified-badge">Avis vérifié</span></div>
               </article>
               <article class="review-card">
-                <div class="tp-stars" aria-label="5 étoiles"><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span></div>
+                <img class="stars-img" src="/images/stars-5.png" alt="5 étoiles" />
                 <h3>J’aime le côté réutilisable</h3>
                 <p>Le fait de pouvoir les nettoyer et les remettre plusieurs fois est un vrai plus. Ça donne une routine plus simple et moins gaspillage.</p>
                 <div class="review-meta"><span class="review-author">Sophie D.</span><span class="verified-badge">Avis vérifié</span></div>
@@ -312,7 +352,7 @@ const landingMarkup = String.raw`
       <div class="container footer-grid">
         <a class="logo" href="#top">STRIPPY</a>
         <div class="footer-links">
-          <a href="#contact">Contact</a>
+          <a href="/contact">Contact</a>
           <a href="#livraison">Livraison</a>
           <a href="#retours">Retours</a>
           <a href="#confidentialite">Politique de confidentialité</a>

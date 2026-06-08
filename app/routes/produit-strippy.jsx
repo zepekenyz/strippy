@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+﻿import {useEffect} from 'react';
 import {connectStrippyProductPage} from '../strippy-interactions.js';
 
 export function meta() {
@@ -13,7 +13,7 @@ export function meta() {
 }
 
 const galleryImages = [
-  '/images/1.png',
+  '/images/premier-page-produit.png',
   '/images/2.png',
   '/images/5.png',
   '/images/4.png',
@@ -28,33 +28,47 @@ export default function ProductStrippyPage() {
   return (
     <main className="strippy-product-page">
       <header className="product-site-header">
-        <div className="sale-timer">
-          <span>L'offre STRIPPY se termine dans</span>
-          <div className="timer-boxes" aria-label="Compte a rebours de l'offre">
-            <span className="timer-box">
-              <span data-countdown-hours>00</span>
-              <small>H</small>
+        <div className="promo-banner" aria-label="Promotion STRIPPY -60%">
+          <div className="promo-main">
+            <span className="promo-exclusive">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13.2 13.2 4H20v6.8L10.8 20 4 13.2Z"></path><path d="M16.5 7.5h.01"></path></svg>
+              Offre exclusive
             </span>
-            <span className="timer-separator">:</span>
-            <span className="timer-box">
-              <span data-countdown-minutes>54</span>
-              <small>MIN</small>
+            <div className="promo-offer">
+              <span>Notre plus grande offre !</span>
+              <strong>-60%</strong>
+            </div>
+            <a className="promo-cta" href="#produit">Je profite de l'offre</a>
+            <div className="promo-limited">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 7v5l3 2"></path></svg>
+              <span>Offre limitée !</span>
+            </div>
+            <span className="timer-boxes promo-countdown" aria-live="polite">
+              <span className="timer-box"><span data-countdown-hours>00</span><small>HRS</small></span>
+              <span className="timer-separator">:</span>
+              <span className="timer-box"><span data-countdown-minutes>54</span><small>MIN</small></span>
+              <span className="timer-separator">:</span>
+              <span className="timer-box"><span data-countdown-seconds>59</span><small>SEC</small></span>
             </span>
-            <span className="timer-separator">:</span>
-            <span className="timer-box">
-              <span data-countdown-seconds>59</span>
-              <small>S</small>
-            </span>
+          </div>
+          <div className="promo-proof">
+            <span className="promo-proof-icon" aria-hidden="true">✓</span>
+            <span>Des milliers de clientes satisfaites font déjà confiance à notre solution</span>
+            <span className="promo-stars" aria-hidden="true">★★★★★</span>
+            <strong>4,7/5</strong>
           </div>
         </div>
 
-        <div className="sale-announcement">Notre plus grande offre : -60%</div>
-
         <nav className="product-nav" aria-label="Navigation STRIPPY">
-          <div className="product-nav-links">
+          <button className="menu-toggle product-menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" data-product-menu-toggle>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div className="product-nav-links" data-product-site-menu>
             <a className="product-nav-sale" href="/produit-strippy">Offre speciale</a>
-            <a href="#suivi">Suivre ma commande</a>
-            <a href="#contact">Contact</a>
+            <a href="/suivre-ma-commande">Suivre ma commande</a>
+            <a href="/contact">Contact</a>
           </div>
           <a className="product-logo" href="/" aria-label="Accueil STRIPPY">
             STRIPPY
@@ -95,7 +109,7 @@ export default function ProductStrippyPage() {
 
       </header>
 
-      <section className="strippy-product-shell" aria-label="Produit STRIPPY">
+      <section className="strippy-product-shell" id="produit" aria-label="Produit STRIPPY">
         <div className="strippy-product-gallery">
           <div className="strippy-product-main">
             <img
@@ -129,11 +143,18 @@ export default function ProductStrippyPage() {
 
         <div className="strippy-product-info">
           <div className="strippy-product-rating">
-            <span aria-hidden="true">★★★★★</span>
+            <span className="stars-img-wrap rating-47" aria-hidden="true">
+              <img className="stars-img" src="/images/stars-5.png" alt="" />
+            </span>
             <p>Excellent 4.7 | 18 067 avis</p>
           </div>
 
-          <h1>STRIPPY™ Patchs Beaute en Silicone</h1>
+          <div className="strippy-title-proofs" aria-label="Preuves de confiance">
+            <span>💜 50 000+ clientes satisfaites</span>
+            <span>💜 Recommandé par des experts skincare</span>
+          </div>
+
+          <h1>STRIPPY™ Patchs Beauté en Silicone</h1>
 
           <p className="strippy-product-badge">
             NOUVEAU : innovation skincare 2025 pour rides et marques visibles
@@ -145,175 +166,90 @@ export default function ProductStrippyPage() {
             <em>-60%</em>
           </div>
 
+          <p className="strippy-price-urgency">🔥 Offre -60% se termine bientôt</p>
+
           <p className="strippy-product-subtitle">
-            Les patchs en silicone medical reutilisables qui aident a lisser
+            Les patchs en silicone médical réutilisables qui aident à lisser
             l'apparence des rides, cicatrices et marques visibles pendant la nuit.
           </p>
 
           <div className="strippy-benefit-panel">
-            <div>
-              <span>≋</span>
-              <p>Diminue l'apparence des rides</p>
-            </div>
-            <div>
-              <span>↓</span>
-              <p>Aide a reduire les ridules</p>
-            </div>
-            <div>
-              <span>⌘</span>
-              <p>Aide les marques visibles</p>
-            </div>
-            <div>
-              <span>□</span>
-              <p>Extra doux sur la peau</p>
-            </div>
-            <div>
-              <span>＋</span>
-              <p>Reutilisable et durable</p>
-            </div>
-            <div>
-              <span>↑</span>
-              <p>Hydratation de surface</p>
-            </div>
+            <div><span>✨</span><p>Lisse visiblement les rides</p></div>
+            <div><span>✨</span><p>Atténue les marques visibles</p></div>
+            <div><span>✨</span><p>Réutilisable jusqu'à 30 nuits</p></div>
+            <div><span>✨</span><p>Aide à réduire les ridules</p></div>
+            <div><span>✨</span><p>Extra doux pour la peau</p></div>
+            <div><span>✨</span><p>Maintient l'hydratation</p></div>
           </div>
 
           <div className="strippy-pack-options" role="radiogroup" aria-label="Choisir un pack">
-            <button
-              className="strippy-pack active"
-              type="button"
-              role="radio"
-              aria-checked="true"
-              data-pack-name="1 Pack"
-              data-pack-size="1 Pack"
-              data-pack-price="23,95 €"
-              data-pack-old-price="60,95 €"
-              data-pack-discount="37,00 €"
-              data-pack-image="/images/1 pack.png"
-            >
-              <span className="strippy-pack-media">
-                <img src="/images/1 pack.png" alt="" />
-              </span>
-              <span className="strippy-pack-copy">
-                <span>
-                  <strong>1 Pack</strong>
-                  <b>-60%</b>
-                </span>
-                <small>Garantie satisfait ou rembourse</small>
-              </span>
-              <span className="strippy-pack-price">
-                <strong>€24</strong>
-                <small>€61</small>
-              </span>
+            <button className="strippy-pack" type="button" role="radio" aria-checked="false" data-pack-name="1 Pack" data-pack-size="1 Pack" data-pack-price="23,95 €" data-pack-old-price="60,95 €" data-pack-discount="37,00 €" data-pack-image="/images/1 pack.png">
+              <span className="strippy-pack-media"><img src="/images/1 pack.png" alt="" /></span>
+              <span className="strippy-pack-copy"><span><strong>1 PACK</strong><b>24€ / pack</b></span><small>Garantie satisfait ou remboursé</small><i>Vous économisez 37€</i></span>
+              <span className="strippy-pack-price"><strong>€24</strong><small>€61</small></span>
             </button>
 
-            <button
-              className="strippy-pack popular"
-              type="button"
-              role="radio"
-              aria-checked="false"
-              data-shopify-variant-id="gid://shopify/ProductVariant/56815940567364"
-              data-pack-name="2 Pack"
-              data-pack-size="2-Pack"
-              data-pack-price="32,95 €"
-              data-pack-old-price="79,95 €"
-              data-pack-discount="47,00 €"
-              data-pack-image="/images/2 pack.png"
-            >
-              <span className="strippy-pack-media">
-                <img src="/images/2 pack.png" alt="" />
-              </span>
-              <span className="strippy-pack-copy">
-                <span>
-                  <strong>2 Pack</strong>
-                  <b>19 $ par pack</b>
-                </span>
-                <small>Livraison offerte incluse</small>
-              </span>
-              <span className="strippy-pack-price">
-                <strong>€33</strong>
-                <small>€80</small>
-              </span>
-              <em>Le plus populaire</em>
+            <button className="strippy-pack popular active" type="button" role="radio" aria-checked="true" data-shopify-variant-id="gid://shopify/ProductVariant/56815940567364" data-pack-name="2 Pack" data-pack-size="2-Pack" data-pack-price="32,95 €" data-pack-old-price="79,95 €" data-pack-discount="47,00 €" data-pack-image="/images/2 pack.png">
+              <span className="strippy-pack-media"><img src="/images/2 pack.png" alt="" /></span>
+              <span className="strippy-pack-copy"><span><strong>2 PACKS</strong><b>19€ / pack</b></span><small>Livraison offerte</small><i>Vous économisez 27€</i></span>
+              <span className="strippy-pack-price"><strong>€33</strong><small>€80</small></span>
+              <em>⭐⭐ Plus populaire</em>
             </button>
 
-            <button
-              className="strippy-pack value"
-              type="button"
-              role="radio"
-              aria-checked="false"
-              data-shopify-variant-id="gid://shopify/ProductVariant/56815940895044"
-              data-pack-name="3 Pack"
-              data-pack-size="3-Pack"
-              data-pack-price="39,95 €"
-              data-pack-old-price="102,00 €"
-              data-pack-discount="62,05 €"
-              data-pack-image="/images/3 pack.png"
-            >
-              <span className="strippy-pack-media">
-                <img src="/images/3 pack.png" alt="" />
-              </span>
-              <span className="strippy-pack-copy">
-                <span>
-                  <strong>3 Pack</strong>
-                  <b>15 $ par pack</b>
-                </span>
-                <small>Meilleure valeur</small>
-              </span>
-              <span className="strippy-pack-price">
-                <strong>€40</strong>
-                <small>€102</small>
-              </span>
+            <button className="strippy-pack value" type="button" role="radio" aria-checked="false" data-shopify-variant-id="gid://shopify/ProductVariant/56815940895044" data-pack-name="3 Pack" data-pack-size="3-Pack" data-pack-price="39,95 €" data-pack-old-price="102,00 €" data-pack-discount="62,05 €" data-pack-image="/images/3 pack.png">
+              <span className="strippy-pack-media"><img src="/images/3 pack.png" alt="" /></span>
+              <span className="strippy-pack-copy"><span><strong>3 PACKS</strong><b>15€ / pack</b></span><small>Meilleure valeur</small><i>Vous économisez 62€</i></span>
+              <span className="strippy-pack-price"><strong>€40</strong><small>€102</small></span>
               <em>Meilleure valeur</em>
             </button>
           </div>
 
           <div className="strippy-purchase-type" role="radiogroup" aria-label="Type d'achat">
-            <button className="active" type="button" role="radio" aria-checked="true">
-              Achat unique
-            </button>
-            <button type="button" role="radio" aria-checked="false">
-              <strong>Abonnement economique</strong>
-              <span>25% de plus</span>
-              <small>Sans engagement</small>
-            </button>
+            <button className="active" type="button" role="radio" aria-checked="true">Achat unique</button>
+            <button type="button" role="radio" aria-checked="false"><strong>Abonnement économique</strong><span>25% de plus</span><small>Sans engagement</small></button>
           </div>
 
-          <button className="strippy-product-cart" type="button" data-cart-add>
-            Ajouter au panier
-          </button>
-          <button className="strippy-shop-pay" type="button" data-cart-add>
-            Payer avec <strong>shop</strong>
-          </button>
+          <button className="strippy-product-cart" type="button" data-cart-add>🛒 Ajouter au panier • 33€</button>
+          <button className="strippy-shop-pay" type="button" data-cart-add>Payer avec <strong>shop</strong></button>
 
+          <div className="strippy-reassurance-grid" aria-label="Garanties STRIPPY">
+            <span>🚚 Livraison suivie</span>
+            <span>🔒 Paiement sécurisé</span>
+            <span>💜 Support réactif</span>
+            <span>↩️ Garantie satisfait ou remboursé</span>
+          </div>
+
+          <div className="strippy-product-social-proof" aria-label="Preuve sociale">
+            <p>👥 82 personnes consultent ce produit</p>
+            <div><span>Stock actuel :</span><strong aria-label="Stock actuel 84 pourcent"><i /></strong><em>84%</em></div>
+            <p>⭐⭐⭐⭐⭐ 4.7/5 (18 067 avis)</p>
+          </div>
           <p className="strippy-payment-note">
             Commandez maintenant pour le recevoir d'ici vendredi 05 juin
           </p>
 
           <div className="strippy-payments" aria-label="Moyens de paiement">
-            <span className="payment-logo visa" aria-label="Visa">VISA</span>
-            <span className="payment-logo mastercard" aria-label="Mastercard">
-              <i />
-              <i />
-            </span>
-            <span className="payment-logo amex" aria-label="American Express">AMERICAN<br />EXPRESS</span>
-            <span className="payment-logo apple-pay" aria-label="Apple Pay"> Pay</span>
-            <span className="payment-logo cb" aria-label="Carte Bancaire">CB</span>
-            <span className="payment-logo klarna" aria-label="Klarna">K.</span>
-            <span className="payment-logo paypal" aria-label="PayPal">P</span>
-            <span className="payment-logo shop-pay" aria-label="Shop Pay">shop</span>
+            <span className="payment-logo payment-logo-img" aria-label="Visa"><img src="/images/visa.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="Mastercard"><img src="/images/mastercard.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="American Express"><img src="/images/american-express.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="Apple Pay"><img src="/images/apple-pay.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="Google Pay"><img src="/images/google-pay.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="PayPal"><img src="/images/paypal.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="Shopify Pay"><img src="/images/shopify-pay.png" alt="" /></span>
           </div>
         </div>
       </section>
 
       <section className="product-press-band" aria-label="Tendances beaute">
-        <p>Vu dans les tendances beaute :</p>
+        <p>Vu dans :</p>
         <div className="product-press-logos">
-          <span className="product-press-condensed">COSMOBEAUTY</span>
-          <span>BAZAAR</span>
-          <span className="product-press-bold">PAPER</span>
-          <span>VOGUE</span>
-          <span>ELLE</span>
-          <span className="product-press-small">S Magazine</span>
+          {[0, 1, 2].map((group) => (
+            <div className="product-press-logo-group" key={group}>
+              <img src="/images/cosmopolitan.png" alt="Cosmopolitan" />
+              <img src="/images/vogue.png" alt="Vogue" />
+              <img src="/images/elle.png" alt="Elle" />
+            </div>
+          ))}
         </div>
       </section>
 
@@ -340,7 +276,7 @@ export default function ProductStrippyPage() {
       <section className="strippy-before-section" aria-label="Resultats visibles STRIPPY">
         <div className="strippy-before-image">
           <img
-            src="/images/5.png"
+            src="/images/produit1.png"
             alt="Avant apres STRIPPY sur l'apparence des rides visibles"
           />
         </div>
@@ -376,7 +312,7 @@ export default function ProductStrippyPage() {
 
         <div className="strippy-smile-image">
           <img
-            src="/images/5.png"
+            src="/images/produit2.png"
             alt="Avant apres STRIPPY sur les rides d'expression"
           />
         </div>
@@ -385,7 +321,7 @@ export default function ProductStrippyPage() {
       <section className="strippy-scar-section" aria-label="Marques visibles et cicatrices">
         <div className="strippy-scar-image">
           <img
-            src="/images/6.png"
+            src="/images/produit3.png"
             alt="Zones de cicatrices et marques visibles que STRIPPY peut aider a attenuer"
           />
         </div>
@@ -487,12 +423,8 @@ export default function ProductStrippyPage() {
             <div className="reviews-score" aria-label="Excellent 4.7 sur 5, base sur 18 067 avis clients">
               <strong>
                 Excellent 4.7 / 5{' '}
-                <span className="tp-stars" aria-hidden="true">
-                  <span className="tp-star">★</span>
-                  <span className="tp-star">★</span>
-                  <span className="tp-star">★</span>
-                  <span className="tp-star">★</span>
-                  <span className="tp-star">★</span>
+                <span className="stars-img-wrap rating-47" aria-hidden="true">
+                  <img className="stars-img" src="/images/stars-5.png" alt="" />
                 </span>
               </strong>
               <span>Base sur 18 067 avis clients</span>
@@ -512,13 +444,7 @@ export default function ProductStrippyPage() {
                 ["J'aime le cote reutilisable", 'Le fait de pouvoir les nettoyer et les remettre plusieurs fois est un vrai plus. Routine simple et moins de gaspillage.', 'Sophie D.'],
               ].map(([title, text, author]) => (
                 <article className="review-card" key={title}>
-                  <div className="tp-stars" aria-label="5 etoiles">
-                    <span className="tp-star">★</span>
-                    <span className="tp-star">★</span>
-                    <span className="tp-star">★</span>
-                    <span className="tp-star">★</span>
-                    <span className="tp-star">★</span>
-                  </div>
+                  <img className="stars-img" src="/images/stars-5.png" alt="5 etoiles" />
                   <h3>{title}</h3>
                   <p>{text}</p>
                   <div className="review-meta">
@@ -617,7 +543,7 @@ export default function ProductStrippyPage() {
         </div>
 
         <div className="cart-reserve">
-          Panier reserve pendant <strong data-cart-timer>01:19</strong> minutes !
+          Panier reserve pendant <strong data-cart-timer>05:00</strong> minutes !
         </div>
 
         <div className="cart-free-shipping">
@@ -640,26 +566,6 @@ export default function ProductStrippyPage() {
 
         <div className="cart-items" data-cart-items />
 
-        <div className="cart-item" data-cart-item>
-          <img src="/images/2 pack.png" alt="" data-cart-image />
-          <div className="cart-item-copy">
-            <h3>STRIPPY™ Patchs Beaute en Silicone</h3>
-            <p>Taille du pack : <span data-cart-pack-size>2-Pack</span></p>
-            <div>
-              <s data-cart-old-price>79,95 €</s>
-              <strong data-cart-price>32,95 €</strong>
-            </div>
-          </div>
-          <button className="cart-remove" type="button" data-cart-remove aria-label="Retirer le produit">
-            ×
-          </button>
-          <div className="cart-qty" aria-label="Quantite">
-            <button type="button" data-cart-minus aria-label="Diminuer la quantite">−</button>
-            <span data-cart-qty>1</span>
-            <button type="button" data-cart-plus aria-label="Augmenter la quantite">+</button>
-          </div>
-        </div>
-
         <div className="cart-summary">
           <div>
             <span>Remises :</span>
@@ -674,12 +580,13 @@ export default function ProductStrippyPage() {
             Finaliser ma commande
           </button>
           <div className="strippy-payments cart-payments" aria-label="Moyens de paiement acceptes">
-            <span className="payment-logo amex" aria-label="American Express">AMERICAN<br />EXPRESS</span>
-            <span className="payment-logo apple-pay" aria-label="Apple Pay"> Pay</span>
-            <span className="payment-logo cb" aria-label="Carte Bancaire">CB</span>
-            <span className="payment-logo mastercard" aria-label="Mastercard"><i /><i /></span>
-            <span className="payment-logo shop-pay" aria-label="Shop Pay">shop</span>
-            <span className="payment-logo visa" aria-label="Visa">VISA</span>
+            <span className="payment-logo payment-logo-img" aria-label="Visa"><img src="/images/visa.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="Mastercard"><img src="/images/mastercard.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="American Express"><img src="/images/american-express.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="Apple Pay"><img src="/images/apple-pay.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="Google Pay"><img src="/images/google-pay.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="PayPal"><img src="/images/paypal.png" alt="" /></span>
+            <span className="payment-logo payment-logo-img" aria-label="Shopify Pay"><img src="/images/shopify-pay.png" alt="" /></span>
           </div>
         </div>
       </aside>
