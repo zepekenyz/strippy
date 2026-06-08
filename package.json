@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "shopify hydrogen dev",
     "build": "shopify hydrogen build",
+    "build:vercel": "react-router build",
     "preview": "shopify hydrogen preview",
     "check": "shopify hydrogen check routes"
   },
