@@ -3,7 +3,7 @@
   "outputDirectory": "build/client",
   "rewrites": [
     {
-      "source": "/((?!assets/|images/|favicon.ico|robots.txt).*)",
+      "source": "/((?!api/|assets/|images/|favicon.ico|robots.txt).*)",
       "destination": "/index.html"
     }
   ]

@@ -928,6 +928,7 @@ async function createShopifyCart(linesOrVariantId = SHOPIFY_VARIANT_ID, quantity
           quantity,
         },
       ];
+  const trackingAttributes = getShopifyTrackingAttributes();
 
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -940,6 +941,9 @@ async function createShopifyCart(linesOrVariantId = SHOPIFY_VARIANT_ID, quantity
       variables: {
         input: {
           lines,
+          ...(trackingAttributes.length
+            ? {attributes: trackingAttributes}
+            : {}),
         },
       },
     }),
@@ -976,6 +980,36 @@ function normalizeShopifyCheckoutUrl(checkoutUrl) {
     return url.toString();
   } catch {
     return checkoutUrl;
+  }
+}
+
+function getShopifyTrackingAttributes() {
+  if (typeof document === 'undefined') return [];
+
+  const attributes = [];
+  const fbp = getCookieValue('_fbp');
+  const fbc = getCookieValue('_fbc') || buildFbcFromLocation();
+
+  if (fbp) attributes.push({key: '_fbp', value: fbp});
+  if (fbc) attributes.push({key: '_fbc', value: fbc});
+
+  return attributes;
+}
+
+function getCookieValue(name) {
+  const cookie = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith(`${name}=`));
+
+  return cookie ? decodeURIComponent(cookie.split('=').slice(1).join('=')) : '';
+}
+
+function buildFbcFromLocation() {
+  try {
+    const fbclid = new URLSearchParams(window.location.search).get('fbclid');
+    return fbclid ? `fb.1.${Date.now()}.${fbclid}` : '';
+  } catch {
+    return '';
   }
 }
 
