@@ -1,6 +1,8 @@
 import {
+  getMetaBrowserCookies,
   trackAddToCart,
   trackInitiateCheckout,
+  trackPurchase,
   trackViewContent,
 } from '../src/lib/tracking/metaPixel';
 
@@ -13,6 +15,65 @@ const SHOPIFY_VARIANT_ID = import.meta.env.VITE_SHOPIFY_VARIANT_ID;
 const SHOPIFY_CHECKOUT_DOMAIN =
   import.meta.env.VITE_SHOPIFY_CHECKOUT_DOMAIN ||
   import.meta.env.VITE_SHOPIFY_STORE_DOMAIN;
+const PROMO_COUNTDOWN_STORAGE_KEY = 'strippy-promo-countdown-ends-at';
+const PROMO_COUNTDOWN_DURATION_MS = (55 * 60 + 1) * 1000;
+const CHECKOUT_EVENT_STORAGE_KEY = 'strippy-last-checkout-event';
+
+function connectPersistentPromoCountdown(cleanup) {
+  const countdownHours = document.querySelector('[data-countdown-hours]');
+  const countdownMinutes = document.querySelector('[data-countdown-minutes]');
+  const countdownSeconds = document.querySelector('[data-countdown-seconds]');
+
+  if (!countdownHours || !countdownMinutes || !countdownSeconds) return;
+
+  const padTime = (value) => String(value).padStart(2, '0');
+  const getStoredEndTime = () => {
+    try {
+      const storedEndTime = Number(
+        window.localStorage.getItem(PROMO_COUNTDOWN_STORAGE_KEY),
+      );
+
+      if (Number.isFinite(storedEndTime) && storedEndTime > 0) {
+        return storedEndTime;
+      }
+    } catch {
+      return 0;
+    }
+
+    return 0;
+  };
+  const setStoredEndTime = (endTime) => {
+    try {
+      window.localStorage.setItem(PROMO_COUNTDOWN_STORAGE_KEY, String(endTime));
+    } catch {
+      // The timer still works for the current session if storage is blocked.
+    }
+  };
+  let countdownEndTime = getStoredEndTime();
+
+  if (!countdownEndTime) {
+    countdownEndTime = Date.now() + PROMO_COUNTDOWN_DURATION_MS;
+    setStoredEndTime(countdownEndTime);
+  }
+
+  const updateCountdown = () => {
+    const remaining = Math.max(
+      Math.floor((countdownEndTime - Date.now()) / 1000),
+      0,
+    );
+    const hours = Math.floor(remaining / 3600);
+    const minutes = Math.floor((remaining % 3600) / 60);
+    const seconds = remaining % 60;
+
+    countdownHours.textContent = padTime(hours);
+    countdownMinutes.textContent = padTime(minutes);
+    countdownSeconds.textContent = padTime(seconds);
+  };
+
+  updateCountdown();
+  const timer = window.setInterval(updateCountdown, 1000);
+  cleanup.push(() => window.clearInterval(timer));
+}
 
 export function connectStrippyInteractions() {
   const cleanup = [];
@@ -31,9 +92,6 @@ export function connectStrippyInteractions() {
   const productPrev = document.querySelector('[data-product-prev]');
   const productNext = document.querySelector('[data-product-next]');
   const addCartButton = document.querySelector('.add-cart');
-  const countdownHours = document.querySelector('[data-countdown-hours]');
-  const countdownMinutes = document.querySelector('[data-countdown-minutes]');
-  const countdownSeconds = document.querySelector('[data-countdown-seconds]');
   const menuToggle = document.querySelector('[data-menu-toggle]');
   const siteMenu = document.querySelector('[data-site-menu]');
 
@@ -84,27 +142,7 @@ export function connectStrippyInteractions() {
     });
   }
 
-  if (countdownHours && countdownMinutes && countdownSeconds) {
-    const countdownDuration = 55 * 60 + 1;
-    const countdownStart = Date.now();
-    const padTime = (value) => String(value).padStart(2, '0');
-
-    const updateCountdown = () => {
-      const elapsed = Math.floor((Date.now() - countdownStart) / 1000);
-      const remaining = Math.max(countdownDuration - elapsed, 0);
-      const hours = Math.floor(remaining / 3600);
-      const minutes = Math.floor((remaining % 3600) / 60);
-      const seconds = remaining % 60;
-
-      countdownHours.textContent = padTime(hours);
-      countdownMinutes.textContent = padTime(minutes);
-      countdownSeconds.textContent = padTime(seconds);
-    };
-
-    updateCountdown();
-    const timer = window.setInterval(updateCountdown, 1000);
-    cleanup.push(() => window.clearInterval(timer));
-  }
+  connectPersistentPromoCountdown(cleanup);
 
   optionButtons.forEach((button) => {
     addListener(button, 'click', () => {
@@ -144,7 +182,7 @@ export function connectStrippyInteractions() {
 
       window.setTimeout(() => {
         productMainImage.src = nextImage;
-        productMainImage.alt = `STRIPPY Patchs Beauté en Silicone - image produit ${
+        productMainImage.alt = `STRIPPY Patchs naturels anti-rides - image produit ${
           activeProductIndex + 1
         }`;
       }, 170);
@@ -306,10 +344,24 @@ export function connectStrippyInteractions() {
     try {
       const checkoutUrl = await createShopifyCart(selectedVariantId);
       if (checkoutUrl) {
+        const contentIds = [selectedVariantId];
+        const contents = [{id: selectedVariantId, quantity: 1, item_price: 23.95}];
+        const eventId = createTrackingEventId('initiatecheckout', contentIds);
+        storeLastCheckoutEvent({
+          event_id: eventId,
+          value: 23.95,
+          currency: 'EUR',
+          num_items: 1,
+          content_ids: contentIds,
+          contents,
+        });
         trackInitiateCheckout({
           value: 23.95,
+          currency: 'EUR',
           num_items: 1,
-          content_ids: [selectedVariantId],
+          content_ids: contentIds,
+          contents,
+          event_id: eventId,
         });
       }
       window.location.href = checkoutUrl;
@@ -335,16 +387,19 @@ export function connectStrippyProductPage() {
     document.querySelectorAll('[data-product-page-image]'),
   );
   const packButtons = Array.from(document.querySelectorAll('.strippy-pack'));
-  const purchaseButtons = Array.from(
-    document.querySelectorAll('.strippy-purchase-type button'),
-  );
   const faqItems = document.querySelectorAll('.faq-item');
   const reviewTrack = document.querySelector('[data-review-track]');
   const reviewPrev = document.querySelector('[data-review-prev]');
   const reviewNext = document.querySelector('[data-review-next]');
   const reviewDots = document.querySelector('[data-review-dots]');
+  const facebookTrack = document.querySelector('[data-facebook-track]');
+  const facebookPrev = document.querySelector('[data-facebook-prev]');
+  const facebookNext = document.querySelector('[data-facebook-next]');
   const addCartButtons = Array.from(document.querySelectorAll('[data-cart-add]'));
-  const primaryCartButton = document.querySelector('.strippy-product-cart[data-cart-add]');
+  const directCheckoutButtons = Array.from(
+    document.querySelectorAll('[data-direct-checkout]'),
+  );
+  const primaryCartButton = document.querySelector('.strippy-product-cart');
   const stickyCart = document.querySelector('[data-product-sticky-cart]');
   const stickyCartTrigger = document.querySelector('[data-sticky-offer-trigger]');
   const cartDrawer = document.querySelector('[data-cart-drawer]');
@@ -360,6 +415,7 @@ export function connectStrippyProductPage() {
   const cartTimer = document.querySelector('[data-cart-timer]');
   const productMenuToggle = document.querySelector('[data-product-menu-toggle]');
   const productSiteMenu = document.querySelector('[data-product-site-menu]');
+  const deliveryEstimate = document.querySelector('[data-delivery-estimate]');
 
   const addListener = (target, event, handler, options) => {
     if (!target) return;
@@ -367,8 +423,43 @@ export function connectStrippyProductPage() {
     cleanup.push(() => target.removeEventListener(event, handler, options));
   };
 
+  connectPersistentPromoCountdown(cleanup);
+  trackPurchaseFromReturnUrl();
+
+  const updateDeliveryEstimate = () => {
+    if (!deliveryEstimate) return;
+
+    const today = new Date();
+    const earliestDate = new Date(today);
+    const latestDate = new Date(today);
+    earliestDate.setDate(today.getDate() + 5);
+    latestDate.setDate(today.getDate() + 8);
+
+    const dayFormatter = new Intl.DateTimeFormat('fr-FR', {day: 'numeric'});
+    const dayMonthFormatter = new Intl.DateTimeFormat('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+    });
+
+    const sameMonth =
+      earliestDate.getMonth() === latestDate.getMonth() &&
+      earliestDate.getFullYear() === latestDate.getFullYear();
+    const earliestText = sameMonth
+      ? dayFormatter.format(earliestDate)
+      : dayMonthFormatter.format(earliestDate);
+    const latestText = dayMonthFormatter.format(latestDate);
+
+    deliveryEstimate.textContent = `Commandez maintenant pour le recevoir entre le ${earliestText} et le ${latestText}`;
+  };
+
+  updateDeliveryEstimate();
+
   const syncProductCta = () => {
     if (!primaryCartButton) return;
+
+    primaryCartButton.textContent =
+      '🛒 Acheter';
+    return;
 
     const activePack = document.querySelector('.strippy-pack.active');
     const packPrice = activePack?.getAttribute('data-pack-price') || '32,95 €';
@@ -509,7 +600,7 @@ export function connectStrippyProductPage() {
           <div class="cart-item">
             <img src="${escapeHtml(line.image)}" alt="" />
             <div class="cart-item-copy">
-              <h3>STRIPPY™ Patchs Beaute en Silicone</h3>
+              <h3>STRIPPY Patchs naturels anti-rides</h3>
               <p>Taille du pack : <span>${escapeHtml(line.packSize)}</span></p>
               <div>
                 <s>${formatMoney(line.unitOldPrice * line.quantity)}</s>
@@ -570,13 +661,16 @@ export function connectStrippyProductPage() {
 
   cartLines = loadCartLines();
 
+  const viewedVariantId = SHOPIFY_VARIANT_ID || getSelectedVariantId();
   trackViewContent({
-    content_name: 'STRIPPY™ Patchs Beaute en Silicone',
+    content_name: 'STRIPPY Patchs naturels anti-rides',
     content_category: 'Skincare patches',
-    content_ids: [SHOPIFY_VARIANT_ID || getSelectedVariantId()],
+    content_ids: [viewedVariantId],
+    contents: [{id: viewedVariantId, quantity: 1, item_price: 23.95}],
     content_type: 'product',
     value: 23.95,
     currency: 'EUR',
+    event_id: createTrackingEventId('viewcontent', [viewedVariantId]),
   });
 
   const openCart = ({addItem = false} = {}) => {
@@ -585,12 +679,20 @@ export function connectStrippyProductPage() {
       const addedPack = addActivePackToCart();
       if (addedPack) {
         trackAddToCart({
-          content_name: 'STRIPPY™ Patchs Beaute en Silicone',
+          content_name: 'STRIPPY Patchs naturels anti-rides',
           content_ids: [addedPack.variantId],
+          contents: [
+            {
+              id: addedPack.variantId,
+              quantity: 1,
+              item_price: addedPack.unitPrice,
+            },
+          ],
           content_type: 'product',
           value: addedPack.unitPrice,
           currency: 'EUR',
           num_items: 1,
+          event_id: createTrackingEventId('addtocart', [addedPack.variantId]),
         });
       }
     }
@@ -725,17 +827,6 @@ export function connectStrippyProductPage() {
     });
   });
 
-  purchaseButtons.forEach((button) => {
-    addListener(button, 'click', () => {
-      purchaseButtons.forEach((option) => {
-        option.classList.remove('active');
-        option.setAttribute('aria-checked', 'false');
-      });
-      button.classList.add('active');
-      button.setAttribute('aria-checked', 'true');
-    });
-  });
-
   faqItems.forEach((item) => {
     const button = item.querySelector('.faq-question');
     const answer = item.querySelector('.faq-answer');
@@ -855,6 +946,23 @@ export function connectStrippyProductPage() {
     cleanup.push(() => window.clearInterval(autoplayTimer));
   }
 
+  if (facebookTrack && facebookPrev && facebookNext) {
+    const moveFacebookReview = (direction) => {
+      const card = facebookTrack.querySelector('.strippy-facebook-card');
+      const step = card
+        ? card.getBoundingClientRect().width + 18
+        : facebookTrack.clientWidth;
+
+      facebookTrack.scrollBy({
+        left: step * direction,
+        behavior: 'smooth',
+      });
+    };
+
+    addListener(facebookPrev, 'click', () => moveFacebookReview(-1));
+    addListener(facebookNext, 'click', () => moveFacebookReview(1));
+  }
+
   const handleCheckoutClick = async (button) => {
     if (!cartLines.length) {
       openCart();
@@ -885,11 +993,28 @@ export function connectStrippyProductPage() {
       );
       if (checkoutUrl) {
         const totals = getCartTotals();
+        const contentIds = cartLines.map((line) => line.variantId);
+        const contents = cartLines.map((line) => ({
+          id: line.variantId,
+          quantity: line.quantity,
+          item_price: line.unitPrice,
+        }));
+        const eventId = createTrackingEventId('initiatecheckout', contentIds);
+        storeLastCheckoutEvent({
+          event_id: eventId,
+          value: totals.price,
+          currency: 'EUR',
+          num_items: totals.quantity,
+          content_ids: contentIds,
+          contents,
+        });
         trackInitiateCheckout({
           value: totals.price,
           currency: 'EUR',
           num_items: totals.quantity,
-          content_ids: cartLines.map((line) => line.variantId),
+          content_ids: contentIds,
+          contents,
+          event_id: eventId,
         });
       }
       window.location.href = checkoutUrl;
@@ -903,11 +1028,91 @@ export function connectStrippyProductPage() {
     }
   };
 
+  const handleDirectCheckoutClick = async (button) => {
+    const packData = getActivePackData();
+
+    if (!packData?.variantId) {
+      window.alert(
+        'Aucune variante Shopify disponible pour ce pack. Vérifie la configuration du produit.',
+      );
+      return;
+    }
+
+    if (!SHOPIFY_STORE_DOMAIN || !SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
+      window.alert(
+        'Configure VITE_SHOPIFY_STORE_DOMAIN et VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN dans .env pour activer le checkout Shopify.',
+      );
+      return;
+    }
+
+    const initialText = button?.textContent || '';
+    if (button) {
+      button.disabled = true;
+      button.textContent = 'Redirection vers le checkout...';
+    }
+
+    try {
+      const checkoutUrl = await createShopifyCart([
+        {
+          merchandiseId: packData.variantId,
+          quantity: packData.quantity,
+        },
+      ]);
+
+      if (checkoutUrl) {
+        const contentIds = [packData.variantId];
+        const contents = [
+          {
+            id: packData.variantId,
+            quantity: packData.quantity,
+            item_price: packData.unitPrice,
+          },
+        ];
+        const eventId = createTrackingEventId('initiatecheckout', contentIds);
+        storeLastCheckoutEvent({
+          event_id: eventId,
+          value: packData.unitPrice,
+          currency: 'EUR',
+          num_items: packData.quantity,
+          content_ids: contentIds,
+          contents,
+        });
+        trackInitiateCheckout({
+          value: packData.unitPrice,
+          currency: 'EUR',
+          num_items: packData.quantity,
+          content_ids: contentIds,
+          contents,
+          event_id: eventId,
+        });
+      }
+
+      window.location.href = checkoutUrl;
+    } catch (error) {
+      console.error(error);
+      window.alert(
+        "Impossible d'ouvrir le checkout Shopify. Vérifie les variables .env et les variantes Shopify.",
+      );
+      if (button) {
+        button.disabled = false;
+        button.textContent = initialText;
+      }
+    }
+  };
+
   addCartButtons.forEach((button) => {
     addListener(button, 'click', (event) => {
       event.preventDefault();
       event.stopPropagation();
       openCart({addItem: true});
+    });
+  });
+
+  directCheckoutButtons.forEach((button) => {
+    addListener(button, 'click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      handleDirectCheckoutClick(button);
     });
   });
 
@@ -987,8 +1192,7 @@ function getShopifyTrackingAttributes() {
   if (typeof document === 'undefined') return [];
 
   const attributes = [];
-  const fbp = getCookieValue('_fbp');
-  const fbc = getCookieValue('_fbc') || buildFbcFromLocation();
+  const {fbp, fbc} = getMetaBrowserCookies();
 
   if (fbp) attributes.push({key: '_fbp', value: fbp});
   if (fbc) attributes.push({key: '_fbc', value: fbc});
@@ -996,20 +1200,56 @@ function getShopifyTrackingAttributes() {
   return attributes;
 }
 
-function getCookieValue(name) {
-  const cookie = document.cookie
-    .split('; ')
-    .find((row) => row.startsWith(`${name}=`));
+function createTrackingEventId(prefix, ids = []) {
+  const cleanIds = ids.filter(Boolean).map((id) => String(id)).join('_');
+  const randomPart =
+    typeof crypto !== 'undefined' && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `${Date.now()}_${Math.random().toString(16).slice(2)}`;
 
-  return cookie ? decodeURIComponent(cookie.split('=').slice(1).join('=')) : '';
+  return `${prefix}_${cleanIds}_${randomPart}`.replace(/[^a-zA-Z0-9:_-]/g, '_');
 }
 
-function buildFbcFromLocation() {
+function storeLastCheckoutEvent(payload) {
   try {
-    const fbclid = new URLSearchParams(window.location.search).get('fbclid');
-    return fbclid ? `fb.1.${Date.now()}.${fbclid}` : '';
+    window.sessionStorage.setItem(
+      CHECKOUT_EVENT_STORAGE_KEY,
+      JSON.stringify(payload),
+    );
   } catch {
-    return '';
+    // Purchase is still handled by Shopify webhook if browser storage is blocked.
+  }
+}
+
+function trackPurchaseFromReturnUrl() {
+  if (typeof window === 'undefined') return;
+
+  const params = new URLSearchParams(window.location.search);
+  const orderId =
+    params.get('order_id') ||
+    params.get('order') ||
+    params.get('shopify_order_id');
+
+  if (!orderId) return;
+
+  try {
+    const storedEvent = JSON.parse(
+      window.sessionStorage.getItem(CHECKOUT_EVENT_STORAGE_KEY) || '{}',
+    );
+
+    trackPurchase({
+      ...storedEvent,
+      order_id: orderId,
+      event_id: `purchase_${orderId}`,
+    });
+
+    window.sessionStorage.removeItem(CHECKOUT_EVENT_STORAGE_KEY);
+  } catch {
+    trackPurchase({
+      order_id: orderId,
+      event_id: `purchase_${orderId}`,
+      currency: 'EUR',
+    });
   }
 }
 

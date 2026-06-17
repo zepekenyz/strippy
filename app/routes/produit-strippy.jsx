@@ -13,7 +13,7 @@ export function meta() {
 }
 
 const galleryImages = [
-  '/images/premier-page-produit.png',
+  '/images/premier-page-produit-nouveau.png',
   '/images/2.png',
   '/images/5.png',
   '/images/4.png',
@@ -28,35 +28,15 @@ export default function ProductStrippyPage() {
   return (
     <main className="strippy-product-page">
       <header className="product-site-header">
-        <div className="promo-banner" aria-label="Promotion STRIPPY -60%">
-          <div className="promo-main">
-            <span className="promo-exclusive">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13.2 13.2 4H20v6.8L10.8 20 4 13.2Z"></path><path d="M16.5 7.5h.01"></path></svg>
-              Offre exclusive
-            </span>
-            <div className="promo-offer">
-              <span>Notre plus grande offre !</span>
-              <strong>-60%</strong>
-            </div>
-            <a className="promo-cta" href="#produit">Je profite de l'offre</a>
-            <div className="promo-limited">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 7v5l3 2"></path></svg>
-              <span>Offre limitée !</span>
-            </div>
-            <span className="timer-boxes promo-countdown" aria-live="polite">
-              <span className="timer-box"><span data-countdown-hours>00</span><small>HRS</small></span>
-              <span className="timer-separator">:</span>
-              <span className="timer-box"><span data-countdown-minutes>54</span><small>MIN</small></span>
-              <span className="timer-separator">:</span>
-              <span className="timer-box"><span data-countdown-seconds>59</span><small>SEC</small></span>
-            </span>
-          </div>
-          <div className="promo-proof">
-            <span className="promo-proof-icon" aria-hidden="true">✓</span>
-            <span>Des milliers de clientes satisfaites font déjà confiance à notre solution</span>
-            <span className="promo-stars" aria-hidden="true">★★★★★</span>
-            <strong>4,7/5</strong>
-          </div>
+        <div className="promo-banner compact-promo" aria-label="Offre STRIPPY limitée">
+          <span className="compact-promo-label">L'offre spéciale se termine dans</span>
+          <span className="timer-boxes promo-countdown compact-promo-countdown" aria-live="polite">
+            <span className="timer-box"><span data-countdown-hours>00</span><small>HRS</small></span>
+            <span className="timer-separator">:</span>
+            <span className="timer-box"><span data-countdown-minutes>55</span><small>MIN</small></span>
+            <span className="timer-separator">:</span>
+            <span className="timer-box"><span data-countdown-seconds>01</span><small>SEC</small></span>
+          </span>
         </div>
 
         <nav className="product-nav" aria-label="Navigation STRIPPY">
@@ -129,27 +109,33 @@ export default function ProductStrippyPage() {
             <span className="stars-img-wrap rating-47" aria-hidden="true">
               <img className="stars-img" src="/images/stars-5.png" alt="" />
             </span>
-            <p>Excellent 4.7 | 18 067 avis</p>
+            <p>Excellent 4.5 | 412 avis</p>
           </div>
 
           <div className="strippy-title-proofs" aria-label="Preuves de confiance">
-            <span>💜 50 000+ clientes satisfaites</span>
-            <span>💜 Recommandé par des experts skincare</span>
+            <span>💜 +800 clientes satisfaites</span>
+            <span>💜 Recommandé par des dermatologues</span>
           </div>
 
-          <h1>STRIPPY™ Patchs Beauté en Silicone</h1>
+          <p className="strippy-brand-label">STRIPPY</p>
+
+          <h1>Patchs anti-rides naturels</h1>
 
           <p className="strippy-product-badge">
-            NOUVEAU : innovation skincare 2025 pour rides et marques visibles
+            ✨ INNOVATION SKINCARE 2026
+          </p>
+
+          <p className="strippy-product-kicker">
+            Pour rides, cicatrices & marques visibles
           </p>
 
           <div className="strippy-product-price">
-            <strong>€23,95 EUR</strong>
-            <span>€60,95 EUR</span>
-            <em>-60%</em>
+            <strong>€29,99 EUR</strong>
+            <span>€42,99 EUR</span>
+            <em>-30%</em>
           </div>
 
-          <p className="strippy-price-urgency">🔥 Offre -60% se termine bientôt</p>
+          <p className="strippy-price-urgency">🔥 Offre -30% se termine bientôt</p>
 
           <p className="strippy-product-subtitle">
             Les patchs en silicone médical réutilisables qui aident à lisser
@@ -166,49 +152,48 @@ export default function ProductStrippyPage() {
           </div>
 
           <div className="strippy-pack-options" role="radiogroup" aria-label="Choisir un pack">
-            <button className="strippy-pack" type="button" role="radio" aria-checked="false" data-pack-name="1 Pack" data-pack-size="1 Pack" data-pack-price="23,95 €" data-pack-old-price="60,95 €" data-pack-discount="37,00 €" data-pack-image="/images/1 pack.png">
+            <button className="strippy-pack" type="button" role="radio" aria-checked="false" data-pack-name="1 Pack" data-pack-size="1 Pack" data-pack-price="29,99 €" data-pack-old-price="42,99 €" data-pack-discount="13,00 €" data-pack-image="/images/1 pack.png">
               <span className="strippy-pack-media"><img src="/images/1 pack.png" alt="" /></span>
-              <span className="strippy-pack-copy"><span><strong>1 PACK</strong><b>24€ / pack</b></span><small>Garantie satisfait ou remboursé</small><i>Vous économisez 37€</i></span>
-              <span className="strippy-pack-price"><strong>€24</strong><small>€61</small></span>
+              <span className="strippy-pack-copy"><span><strong>1 PACK</strong><b>30 nuits d'utilisation</b></span><i>Vous économisez 13€</i></span>
+              <span className="strippy-pack-price"><strong>29,99€</strong><small>42,99€</small></span>
             </button>
 
-            <button className="strippy-pack popular active" type="button" role="radio" aria-checked="true" data-shopify-variant-id="gid://shopify/ProductVariant/56815940567364" data-pack-name="2 Pack" data-pack-size="2-Pack" data-pack-price="32,95 €" data-pack-old-price="79,95 €" data-pack-discount="47,00 €" data-pack-image="/images/2 pack.png">
+            <button className="strippy-pack popular active" type="button" role="radio" aria-checked="true" data-shopify-variant-id="gid://shopify/ProductVariant/56815940567364" data-pack-name="2 Pack" data-pack-size="2-Pack" data-pack-price="39,99 €" data-pack-old-price="56,99 €" data-pack-discount="17,00 €" data-pack-image="/images/2 pack.png">
               <span className="strippy-pack-media"><img src="/images/2 pack.png" alt="" /></span>
-              <span className="strippy-pack-copy"><span><strong>2 PACKS</strong><b>19€ / pack</b></span><small>Livraison offerte</small><i>Vous économisez 27€</i></span>
-              <span className="strippy-pack-price"><strong>€33</strong><small>€80</small></span>
+              <span className="strippy-pack-copy"><span><strong>2 PACKS</strong><b>60 nuits d'utilisation</b></span><i>Vous économisez 17€</i></span>
+              <span className="strippy-pack-price"><strong>39,99€</strong><small>56,99€</small></span>
               <em>⭐⭐ Plus populaire</em>
             </button>
 
-            <button className="strippy-pack value" type="button" role="radio" aria-checked="false" data-shopify-variant-id="gid://shopify/ProductVariant/56815940895044" data-pack-name="3 Pack" data-pack-size="3-Pack" data-pack-price="39,95 €" data-pack-old-price="102,00 €" data-pack-discount="62,05 €" data-pack-image="/images/3 pack.png">
+            <button className="strippy-pack value" type="button" role="radio" aria-checked="false" data-shopify-variant-id="gid://shopify/ProductVariant/56815940895044" data-pack-name="3 Pack + 1 offert" data-pack-size="3-Pack + 1 offert" data-pack-price="59,99 €" data-pack-old-price="85,99 €" data-pack-discount="26,00 €" data-pack-image="/images/3 pack.png">
               <span className="strippy-pack-media"><img src="/images/3 pack.png" alt="" /></span>
-              <span className="strippy-pack-copy"><span><strong>3 PACKS</strong><b>15€ / pack</b></span><small>Meilleure valeur</small><i>Vous économisez 62€</i></span>
-              <span className="strippy-pack-price"><strong>€40</strong><small>€102</small></span>
+              <span className="strippy-pack-copy"><span><strong>3 PACKS + 1 OFFERT</strong><b>120 nuits d'utilisation</b></span><i>Vous économisez 26€</i></span>
+              <span className="strippy-pack-price"><strong>59,99€</strong><small>85,99€</small></span>
               <em>Meilleure valeur</em>
             </button>
           </div>
 
-          <div className="strippy-purchase-type" role="radiogroup" aria-label="Type d'achat">
-            <button className="active" type="button" role="radio" aria-checked="true">Achat unique</button>
-            <button type="button" role="radio" aria-checked="false"><strong>Abonnement économique</strong><span>25% de plus</span><small>Sans engagement</small></button>
-          </div>
-
-          <button className="strippy-product-cart" type="button" data-cart-add>🛒 Ajouter au panier • 33€</button>
+          <button className="strippy-product-cart" type="button" data-direct-checkout>
+            🛒 Acheter
+          </button>
           <button className="strippy-shop-pay" type="button" data-cart-add>Payer avec <strong>shop</strong></button>
 
           <div className="strippy-reassurance-grid" aria-label="Garanties STRIPPY">
-            <span>🚚 Livraison suivie</span>
-            <span>🔒 Paiement sécurisé</span>
-            <span>💜 Support réactif</span>
-            <span>↩️ Garantie satisfait ou remboursé</span>
+            <span>🚚 Livraison gratuite</span>
+            <span>🔒 Résultat garanti ou remboursé</span>
+            <span>💜 Retour gratuit sous 30 jours</span>
+            <span>🛡️ Qualité testée et approuvée</span>
           </div>
 
           <div className="strippy-product-social-proof" aria-label="Preuve sociale">
-            <p>👥 82 personnes consultent ce produit</p>
+            <p>👥 12 personnes consultent ce produit</p>
             <div><span>Stock actuel :</span><strong aria-label="Stock actuel 84 pourcent"><i /></strong><em>84%</em></div>
-            <p>⭐⭐⭐⭐⭐ 4.7/5 (18 067 avis)</p>
+            <p>⭐⭐⭐⭐⭐ 4.5/5 (412 avis)</p>
           </div>
           <p className="strippy-payment-note">
-            Commandez maintenant pour le recevoir d'ici vendredi 05 juin
+            <span data-delivery-estimate>
+              Commandez maintenant pour le recevoir sous 5 à 8 jours
+            </span>
           </p>
 
           <div className="strippy-payments" aria-label="Moyens de paiement">
@@ -243,15 +228,15 @@ export default function ProductStrippyPage() {
       <div className="product-bottom-cart" data-product-sticky-cart aria-hidden="true">
         <div className="product-bottom-cart-inner">
           <div className="product-bottom-cart-copy">
-            <strong>STRIPPY™ Patchs Beaute en Silicone</strong>
+            <strong>STRIPPY Patchs naturels anti-rides</strong>
             <span>
-              <b>23,95 €</b>
-              <s>60,95 €</s>
-              <em>-60%</em>
+              <b>29,99 €</b>
+              <s>42,99 €</s>
+              <em>-30%</em>
             </span>
           </div>
-          <button className="product-bottom-cart-button" type="button" data-cart-add>
-            Ajouter au panier
+          <button className="product-bottom-cart-button" type="button" data-direct-checkout>
+            🛒 Acheter
           </button>
         </div>
       </div>
@@ -324,10 +309,190 @@ export default function ProductStrippyPage() {
         </div>
       </section>
 
+      <section className="strippy-facebook-review" aria-label="Avis cliente type reseau social">
+        <button className="strippy-facebook-nav prev" type="button" data-facebook-prev aria-label="Avis precedent">‹</button>
+        <div className="strippy-facebook-track" data-facebook-track>
+        <article className="strippy-facebook-card">
+          <div className="strippy-facebook-head">
+            <img
+              className="strippy-facebook-avatar"
+              src="/images/faux post facebook/photo de profile 4.png"
+              alt=""
+            />
+            <div className="strippy-facebook-author">
+              <strong>Claire Martin</strong>
+              <span>6 j · Nantes · 🌐</span>
+            </div>
+            <button className="strippy-facebook-menu" type="button" aria-label="Options du post">•••</button>
+          </div>
+
+          <p className="strippy-facebook-text">
+            Petit retour apres 7 nuits avec STRIPPY parce que plusieurs m'ont
+            demande en message privé. J'etais sceptique au début, surtout apres
+            avoir teste beaucoup de soins. Je l'ai mis le soir sur les rides du
+            sourire et une petite marque pres du menton.
+            <br />
+            <br />
+            Au reveil, ma peau parait plus lisse, mieux hydratee, et le patch ne
+            tire pas comme je l'imaginais. Ce n'est pas magique, mais je vois une
+            vraie difference quand je suis reguliere.
+          </p>
+
+          <div className="strippy-facebook-photo" aria-label="Resultat partage par une cliente">
+            <img src="/images/faux post facebook/post 1.png" alt="Avis cliente partage dans un post social STRIPPY" />
+          </div>
+
+          <div className="strippy-facebook-meta">
+            <span className="strippy-facebook-reactions">
+              <i><img src="/images/faux post facebook/like.png" alt="" /></i>
+              <i><img src="/images/faux post facebook/coeur.png" alt="" /></i>
+              <i><img src="/images/faux post facebook/choque.png" alt="" /></i>
+              248
+            </span>
+            <span>37 commentaires · 18 partages</span>
+          </div>
+
+          <div className="strippy-facebook-comments">
+            <button className="strippy-facebook-more" type="button">Voir les commentaires precedents</button>
+
+            {[
+              ['Sophie L.', 'Tu les portes toute la nuit ? J’hesite a tester pour le front.', '2 j', '/images/faux post facebook/photo de profile 1.png'],
+              ['Claire Martin', 'Oui, sur peau propre et seche. Franchement je les oublie assez vite.', '2 j', '/images/faux post facebook/photo de profile 2.png'],
+              ['Marion D.', 'Je confirme, ca aide surtout quand on est reguliere le soir.', '1 j', '/images/faux post facebook/photo de profile 3.png'],
+            ].map(([name, comment, time, avatar]) => (
+              <div className="strippy-facebook-comment" key={name}>
+                <img className="strippy-facebook-comment-avatar" src={avatar} alt="" />
+                <div>
+                  <strong>{name}</strong>
+                  <p>{comment}</p>
+                  <small>J'aime · Repondre · {time}</small>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+        <article className="strippy-facebook-card">
+          <div className="strippy-facebook-head">
+            <img
+              className="strippy-facebook-avatar"
+              src="/images/faux post facebook/photo de profile post numero 1.png"
+              alt=""
+            />
+            <div className="strippy-facebook-author">
+              <strong>Nathalie R.</strong>
+              <span>3 j · Lyon · 🌐</span>
+            </div>
+            <button className="strippy-facebook-menu" type="button" aria-label="Options du post">•••</button>
+          </div>
+
+          <p className="strippy-facebook-text">
+            Je voulais attendre quelques jours avant de donner mon avis. J'utilise
+            STRIPPY le soir sur le front et pres des yeux. C'est simple, ca ne
+            pique pas, et surtout ma peau a l'air moins marquee au reveil.
+            <br />
+            <br />
+            Je vous mettrai mes photos exactes ici, mais pour l'instant je suis
+            vraiment surprise du confort.
+          </p>
+
+          <div className="strippy-facebook-photo" aria-label="Resultat partage par une cliente">
+            <img src="/images/faux post facebook/post 2.png" alt="Deuxieme avis cliente partage dans un post social STRIPPY" />
+          </div>
+
+          <div className="strippy-facebook-meta">
+            <span className="strippy-facebook-reactions">
+              <i><img src="/images/faux post facebook/like.png" alt="" /></i>
+              <i><img src="/images/faux post facebook/coeur.png" alt="" /></i>
+              <i><img src="/images/faux post facebook/choque.png" alt="" /></i>
+              193
+            </span>
+            <span>22 commentaires · 9 partages</span>
+          </div>
+
+          <div className="strippy-facebook-comments">
+            <button className="strippy-facebook-more" type="button">Voir les commentaires precedents</button>
+
+            {[
+              ['Amelie P.', 'Tu as pris quel pack ? Je pensais prendre le 2 packs.', '1 j', '/images/faux post facebook/photo de profile 5.png'],
+              ['Nathalie R.', 'J’ai pris le 2 packs, je voulais en avoir assez pour etre reguliere.', '1 j', '/images/faux post facebook/photo de profile 4.png'],
+              ['Celine A.', 'Merci pour ton retour, ca fait plus naturel que les injections.', '12 h', '/images/faux post facebook/photo de profile 6.png'],
+            ].map(([name, comment, time, avatar]) => (
+              <div className="strippy-facebook-comment" key={name}>
+                <img className="strippy-facebook-comment-avatar" src={avatar} alt="" />
+                <div>
+                  <strong>{name}</strong>
+                  <p>{comment}</p>
+                  <small>J'aime · Repondre · {time}</small>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+        <article className="strippy-facebook-card">
+          <div className="strippy-facebook-head">
+            <img
+              className="strippy-facebook-avatar"
+              src="/images/faux post facebook/photo de profile 7.png"
+              alt=""
+            />
+            <div className="strippy-facebook-author">
+              <strong>Isabelle V.</strong>
+              <span>1 j · Bordeaux · 🌐</span>
+            </div>
+            <button className="strippy-facebook-menu" type="button" aria-label="Options du post">•••</button>
+          </div>
+
+          <p className="strippy-facebook-text">
+            Je pensais que les patchs allaient etre compliques a utiliser, mais
+            c'est devenu tres vite automatique dans ma routine du soir. Je les
+            applique apres avoir nettoye ma peau, et je les retire le matin.
+            <br />
+            <br />
+            Ce que j'aime surtout, c'est que ma peau garde un aspect naturel.
+            Les ridules paraissent plus douces, sans effet fige.
+          </p>
+
+          <div className="strippy-facebook-photo" aria-label="Resultat partage par une cliente">
+            <img src="/images/faux post facebook/post 3.png" alt="Troisieme avis cliente partage dans un post social STRIPPY" />
+          </div>
+
+          <div className="strippy-facebook-meta">
+            <span className="strippy-facebook-reactions">
+              <i><img src="/images/faux post facebook/like.png" alt="" /></i>
+              <i><img src="/images/faux post facebook/coeur.png" alt="" /></i>
+              <i><img src="/images/faux post facebook/choque.png" alt="" /></i>
+              171
+            </span>
+            <span>19 commentaires · 7 partages</span>
+          </div>
+
+          <div className="strippy-facebook-comments">
+            <button className="strippy-facebook-more" type="button">Voir les commentaires precedents</button>
+
+            {[
+              ['Laura N.', 'Ca tient vraiment pendant la nuit ?', '18 h', '/images/faux post facebook/photo de profile 8.png'],
+              ['Isabelle V.', 'Oui, sur peau bien seche ca tient tres bien chez moi.', '17 h', '/images/faux post facebook/photo de profile 7.png'],
+              ['Karine B.', 'Merci pour ton retour, je cherchais justement quelque chose de doux.', '9 h', '/images/faux post facebook/photo de profile 9.png'],
+            ].map(([name, comment, time, avatar]) => (
+              <div className="strippy-facebook-comment" key={name}>
+                <img className="strippy-facebook-comment-avatar" src={avatar} alt="" />
+                <div>
+                  <strong>{name}</strong>
+                  <p>{comment}</p>
+                  <small>J'aime · Repondre · {time}</small>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+        </div>
+        <button className="strippy-facebook-nav next" type="button" data-facebook-next aria-label="Avis suivant">›</button>
+      </section>
+
       <section className="strippy-why-section" aria-label="Pourquoi STRIPPY">
         <div className="strippy-why-copy">
           <h2>
-            Pourquoi <em>STRIPPY™ ?</em>
+            Pourquoi <em>STRIPPY ?</em>
           </h2>
           <p>
             Obtenez une routine double action pour aider a lisser l'apparence des
@@ -345,7 +510,7 @@ export default function ProductStrippyPage() {
         <div className="strippy-compare-table" role="table" aria-label="Comparaison STRIPPY et autres marques">
           <div className="strippy-compare-head" role="row">
             <span role="columnheader" />
-            <strong role="columnheader">STRIPPY™</strong>
+            <strong role="columnheader">STRIPPY</strong>
             <strong role="columnheader">Autres marques</strong>
           </div>
 
@@ -384,7 +549,7 @@ export default function ProductStrippyPage() {
         <div className="strippy-stat-row">
           <div className="strippy-stat-circle" style={{'--percent': 95}}>95%</div>
           <p>
-            Ont trouve STRIPPY™ <strong>plus simple a utiliser</strong> que les
+            Ont trouve STRIPPY <strong>plus simple a utiliser</strong> que les
             routines longues a base de cremes anti-rides.
           </p>
         </div>
@@ -403,14 +568,14 @@ export default function ProductStrippyPage() {
           <div className="section-head">
             <p className="eyebrow">Avis clients verifies</p>
             <h2 id="product-reviews-title">Nos clientes en parlent mieux que nous</h2>
-            <div className="reviews-score" aria-label="Excellent 4.7 sur 5, base sur 18 067 avis clients">
+            <div className="reviews-score" aria-label="Excellent 4.5 sur 5, base sur 412 avis clients">
               <strong>
-                Excellent 4.7 / 5{' '}
+                Excellent 4.5 / 5{' '}
                 <span className="stars-img-wrap rating-47" aria-hidden="true">
                   <img className="stars-img" src="/images/stars-5.png" alt="" />
                 </span>
               </strong>
-              <span>Base sur 18 067 avis clients</span>
+              <span>Base sur 412 avis clients</span>
             </div>
           </div>
 

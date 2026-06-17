@@ -1,28 +1,14 @@
 import crypto from 'node:crypto';
-
-const META_DEFAULT_VERSION = 'v22.0';
-
-const json = (response, status, payload) => {
-  response.status(status).json(payload);
-};
-
-const readRawBody = async (request) => {
-  const chunks = [];
-
-  for await (const chunk of request) {
-    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
-  }
-
-  return Buffer.concat(chunks);
-};
-
-const safeCompare = (a, b) => {
-  const left = Buffer.from(String(a || ''), 'utf8');
-  const right = Buffer.from(String(b || ''), 'utf8');
-
-  if (left.length !== right.length) return false;
-  return crypto.timingSafeEqual(left, right);
-};
+import {
+  compact,
+  json,
+  normalizePhone,
+  readRawBody,
+  safeCompare,
+  sanitizeContents,
+  sendEventToMeta,
+  sha256,
+} from './_meta-capi.js';
 
 const verifyShopifyWebhook = (rawBody, hmacHeader, secret) => {
   if (!hmacHeader || !secret) return false;
@@ -34,26 +20,6 @@ const verifyShopifyWebhook = (rawBody, hmacHeader, secret) => {
 
   return safeCompare(digest, hmacHeader);
 };
-
-const sha256 = (value) => {
-  const normalized = String(value || '').trim().toLowerCase();
-  if (!normalized) return undefined;
-
-  return crypto.createHash('sha256').update(normalized).digest('hex');
-};
-
-const cleanPhone = (value) => {
-  const digits = String(value || '').replace(/[^\d+]/g, '');
-  return digits || undefined;
-};
-
-const compact = (object) =>
-  Object.fromEntries(
-    Object.entries(object).filter(([, value]) => {
-      if (Array.isArray(value)) return value.length > 0;
-      return value !== undefined && value !== null && value !== '';
-    }),
-  );
 
 const getAttribute = (order, key) => {
   const attributes = [
@@ -85,6 +51,9 @@ const parseMoney = (value) => {
   return Number.isFinite(number) ? number : 0;
 };
 
+const getOrderId = (order) =>
+  String(order.id || order.order_number || order.admin_graphql_api_id || '');
+
 const getOrderValue = (order) =>
   parseMoney(order.current_total_price || order.total_price);
 
@@ -113,20 +82,27 @@ const buildUserData = (order) => {
   const billing = order.billing_address || {};
   const shipping = order.shipping_address || {};
   const customer = order.customer || {};
-  const address = billing || shipping;
+  const address = billing.city ? billing : shipping;
   const clientDetails = order.client_details || {};
-  const phone = cleanPhone(order.phone || billing.phone || shipping.phone);
+  const phone = normalizePhone(
+    order.phone || billing.phone || shipping.phone || customer.phone,
+  );
+  const customerId = customer.id || order.customer?.id;
 
   return compact({
     em: [sha256(order.email || customer.email)].filter(Boolean),
     ph: [sha256(phone)].filter(Boolean),
-    fn: [sha256(billing.first_name || shipping.first_name || customer.first_name)].filter(Boolean),
-    ln: [sha256(billing.last_name || shipping.last_name || customer.last_name)].filter(Boolean),
+    fn: [
+      sha256(billing.first_name || shipping.first_name || customer.first_name),
+    ].filter(Boolean),
+    ln: [
+      sha256(billing.last_name || shipping.last_name || customer.last_name),
+    ].filter(Boolean),
     ct: [sha256(address.city)].filter(Boolean),
     st: [sha256(address.province_code || address.province)].filter(Boolean),
     zp: [sha256(address.zip)].filter(Boolean),
     country: [sha256(address.country_code || address.country)].filter(Boolean),
-    external_id: [sha256(customer.id || order.customer?.id)].filter(Boolean),
+    external_id: [sha256(customerId)].filter(Boolean),
     client_ip_address: clientDetails.browser_ip || order.browser_ip,
     client_user_agent: clientDetails.user_agent,
     fbp: getAttribute(order, '_fbp'),
@@ -136,25 +112,20 @@ const buildUserData = (order) => {
 
 const buildPurchaseEvent = (order) => {
   const lineItems = Array.isArray(order.line_items) ? order.line_items : [];
-  const contents = lineItems
-    .map((lineItem) => {
-      const id = getVariantGid(lineItem);
-      if (!id) return null;
-
-      return compact({
-        id,
-        quantity: Number(lineItem.quantity || 1),
-        item_price: parseMoney(lineItem.price),
-      });
-    })
-    .filter(Boolean);
+  const contents = sanitizeContents(
+    lineItems.map((lineItem) => ({
+      id: getVariantGid(lineItem),
+      quantity: Number(lineItem.quantity || 1),
+      item_price: parseMoney(lineItem.price),
+    })),
+  );
   const contentIds = contents.map((content) => content.id);
-  const orderId = String(order.admin_graphql_api_id || order.id || order.order_number);
+  const orderId = getOrderId(order);
 
   return {
     event_name: 'Purchase',
     event_time: getEventTime(order),
-    event_id: `shopify_purchase_${orderId}`,
+    event_id: `purchase_${orderId}`,
     action_source: 'website',
     event_source_url: order.order_status_url || order.landing_site,
     user_data: buildUserData(order),
@@ -173,43 +144,6 @@ const buildPurchaseEvent = (order) => {
   };
 };
 
-const sendToMeta = async (event) => {
-  const pixelId = process.env.META_PIXEL_ID || process.env.VITE_META_PIXEL_ID;
-  const token = process.env.META_ACCESS_TOKEN;
-  const version = process.env.META_GRAPH_API_VERSION || META_DEFAULT_VERSION;
-
-  if (!pixelId || !token) {
-    throw new Error('Missing META_PIXEL_ID or META_ACCESS_TOKEN');
-  }
-
-  const endpoint = `https://graph.facebook.com/${version}/${pixelId}/events`;
-  const body = {
-    data: [event],
-  };
-
-  if (process.env.META_TEST_EVENT_CODE) {
-    body.test_event_code = process.env.META_TEST_EVENT_CODE;
-  }
-
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      ...body,
-      access_token: token,
-    }),
-  });
-
-  const payload = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    const message = payload?.error?.message || 'Meta CAPI request failed';
-    throw new Error(message);
-  }
-
-  return payload;
-};
-
 export default async function handler(request, response) {
   if (request.method !== 'POST') {
     response.setHeader('Allow', 'POST');
@@ -225,7 +159,7 @@ export default async function handler(request, response) {
     return json(response, 401, {ok: false, error: 'Invalid Shopify webhook'});
   }
 
-  if (topic && topic !== 'orders/create' && topic !== 'orders/paid') {
+  if (topic && topic !== 'orders/paid' && topic !== 'orders/create') {
     return json(response, 202, {ok: true, skipped: 'Unsupported topic'});
   }
 
@@ -238,7 +172,7 @@ export default async function handler(request, response) {
 
   try {
     const event = buildPurchaseEvent(order);
-    const metaResponse = await sendToMeta(event);
+    const metaResponse = await sendEventToMeta(event);
 
     return json(response, 200, {
       ok: true,

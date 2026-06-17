@@ -61,10 +61,10 @@ const faqs = [
 ];
 
 const reassuranceItems = [
-  {icon: '🚚', title: 'Livraison suivie'},
-  {icon: '🔒', title: 'Paiement sécurisé'},
-  {icon: '💜', title: 'Support réactif'},
-  {icon: '↩️', title: 'Garantie satisfait ou remboursé'},
+  {icon: '🚚', title: 'Livraison gratuite'},
+  {icon: '🔒', title: 'Résultat garanti ou remboursé'},
+  {icon: '💜', title: 'Retour gratuit sous 30 jours'},
+  {icon: '🛡️', title: 'Qualité testée et approuvée'},
 ];
 
 export default function ContactPage() {

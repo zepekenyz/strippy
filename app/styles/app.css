@@ -172,6 +172,55 @@
       box-shadow: inset 0 -1px 0 rgba(255, 255, 255, .12);
     }
 
+    .compact-promo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      gap: 12px;
+      padding: 6px 14px;
+      background: linear-gradient(90deg, #c66ef3 0%, #c65de5 48%, #ba56cc 100%);
+      color: #fff;
+      box-shadow: none;
+    }
+
+    .compact-promo-label {
+      font-size: 14px;
+      font-weight: 950;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .compact-promo-countdown {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .compact-promo-countdown .timer-box {
+      min-width: 26px;
+      height: 24px;
+      border-radius: 4px;
+      background: #fff;
+      color: #24172d;
+      font-size: 12px;
+      font-weight: 950;
+      line-height: .88;
+    }
+
+    .compact-promo-countdown .timer-box small {
+      font-size: 5px;
+      line-height: 1;
+    }
+
+    .compact-promo-countdown .timer-separator {
+      width: 4px;
+      color: #fff;
+      font-weight: 950;
+      opacity: .95;
+    }
+
     .promo-main {
       display: grid;
       grid-template-columns: auto 1fr auto auto auto;
@@ -865,6 +914,51 @@
     }
 
     @media (max-width: 767px) {
+      .compact-promo {
+        display: flex;
+        grid-template-columns: none;
+        min-height: 38px;
+        gap: 9px;
+        padding: 6px 8px;
+        border-radius: 0;
+      }
+
+      .compact-promo-label {
+        font-size: 12px;
+      }
+
+      .compact-promo .compact-promo-countdown {
+        grid-column: auto;
+        grid-row: auto;
+        justify-self: auto;
+        align-self: auto;
+        padding-left: 0;
+        gap: 3px;
+      }
+
+      .compact-promo .compact-promo-countdown .timer-box {
+        display: inline-grid;
+        min-width: 23px;
+        height: 22px;
+        border: 0;
+        border-radius: 4px;
+        background: #fff;
+        color: #24172d;
+        font-size: 11px;
+        box-shadow: none;
+      }
+
+      .compact-promo .compact-promo-countdown .timer-box small,
+      .compact-promo .compact-promo-countdown .timer-box:first-child,
+      .compact-promo .compact-promo-countdown .timer-separator:first-of-type {
+        display: grid;
+      }
+
+      .compact-promo .compact-promo-countdown .timer-separator {
+        display: inline-grid;
+        width: 4px;
+      }
+
       .promo-banner {
         padding: 7px 10px 8px;
         border-radius: 0;
@@ -1028,7 +1122,7 @@
       }
 
       .promo-proof strong::after {
-        content: " • 18 067 avis";
+        content: " • 412 avis";
       }
     }
 
@@ -1365,7 +1459,7 @@
       right: 22px;
       bottom: 28px;
       color: #2c2c2c;
-      content: "STRIPPY\A Patchs Beauté\A Silicone";
+      content: "STRIPPY\A Patchs naturels\A anti-rides";
       font-family: Georgia, "Times New Roman", serif;
       font-size: 22px;
       line-height: 1.12;
@@ -2137,6 +2231,51 @@
         font-size: 12px;
       }
 
+      .compact-promo {
+        display: flex;
+        grid-template-columns: none;
+        min-height: 38px;
+        gap: 9px;
+        padding: 6px 8px;
+        border-radius: 0;
+      }
+
+      .compact-promo-label {
+        font-size: 12px;
+      }
+
+      .compact-promo .compact-promo-countdown {
+        grid-column: auto;
+        grid-row: auto;
+        justify-self: auto;
+        align-self: auto;
+        padding-left: 0;
+        gap: 3px;
+      }
+
+      .compact-promo .compact-promo-countdown .timer-box {
+        display: inline-grid;
+        min-width: 23px;
+        height: 22px;
+        border: 0;
+        border-radius: 4px;
+        background: #fff;
+        color: #24172d;
+        font-size: 11px;
+        box-shadow: none;
+      }
+
+      .compact-promo .compact-promo-countdown .timer-box small,
+      .compact-promo .compact-promo-countdown .timer-box:first-child,
+      .compact-promo .compact-promo-countdown .timer-separator:first-of-type {
+        display: grid;
+      }
+
+      .compact-promo .compact-promo-countdown .timer-separator {
+        display: inline-grid;
+        width: 4px;
+      }
+
       .promo-banner {
         padding: 7px 10px 8px;
         border-radius: 0;
@@ -2304,7 +2443,7 @@
       }
 
       .promo-proof strong::after {
-        content: " • 18 067 avis";
+        content: " • 412 avis";
       }
 
       .sale-announcement {
@@ -3996,73 +4135,118 @@
       line-height: 1;
     }
 
+    .strippy-brand-label {
+      margin: 0 0 6px;
+      color: #8d5dbb;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .22em;
+      line-height: 1;
+      text-align: center;
+    }
+
     .strippy-product-info h1 {
-      margin: 0 0 10px;
-      color: #050505;
-      font-family: "Avenir Next", "Nunito Sans", Inter, ui-sans-serif, system-ui, sans-serif;
-      font-size: clamp(30px, 2.45vw, 38px);
-      font-weight: 820;
-      line-height: 1.12;
-      letter-spacing: .005em;
+      margin: 0 0 12px;
+      color: #161116;
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 3vw, 46px);
+      font-weight: 760;
+      line-height: 1.02;
+      letter-spacing: 0;
+      text-align: center;
     }
 
     .strippy-product-badge {
-      margin: 0 0 18px;
-      color: #171319;
-      font-size: 14px;
-      font-weight: 850;
-      line-height: 1.28;
-      letter-spacing: .035em;
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      margin: 0 0 10px;
+      padding: 8px 13px;
+      border: 1px solid rgba(244, 164, 232, .55);
+      border-radius: 999px;
+      background: rgba(244, 164, 232, .18);
+      color: #7b2770;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: .09em;
       text-transform: uppercase;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .strippy-product-kicker {
+      margin: 0 0 18px;
+      color: #3c303d;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .11em;
+      line-height: 1.35;
+      text-transform: uppercase;
+      text-align: center;
     }
 
     .strippy-product-price {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 8px;
-      padding-bottom: 8px;
+      gap: 10px;
+      margin: 0 0 10px;
+      padding: 14px 16px;
+      border: 1px solid rgba(244, 164, 232, .35);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .96), rgba(244, 164, 232, .13));
     }
 
     .strippy-product-price strong {
-      color: #a873e5;
-      font-size: 20px;
+      color: #6b2cf5;
+      font-size: 27px;
       font-weight: 950;
+      letter-spacing: -.01em;
     }
 
     .strippy-product-price span {
-      color: #161116;
-      font-size: 16px;
-      font-weight: 900;
+      color: #6d6570;
+      font-size: 15px;
+      font-weight: 850;
       text-decoration: line-through;
     }
 
     .strippy-product-price em,
     .strippy-pack em {
       display: inline-flex;
-      padding: 5px 9px;
-      border-radius: 7px;
-      background: #a873e5;
-      color: #fff;
-      font-size: 13px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #f4a4e8;
+      color: #4f174d;
+      font-size: 12px;
       font-style: normal;
       font-weight: 950;
       line-height: 1;
     }
 
     .strippy-price-urgency {
-      margin: 0 0 12px;
-      color: #9b246d;
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      margin: 0 0 16px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(244, 164, 232, .2);
+      color: #8d236f;
       font-size: 13px;
-      font-weight: 900;
+      font-weight: 850;
       line-height: 1.25;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .strippy-product-subtitle {
-      margin: 0 0 14px;
+      margin: 0 0 18px;
       color: #3f3942;
-      font-size: 16px;
-      line-height: 1.35;
+      font-size: 16.5px;
+      line-height: 1.62;
+      text-align: center;
     }
 
     .strippy-benefit-panel {
@@ -4258,13 +4442,13 @@
 
     .strippy-purchase-type {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 10px;
       margin: 14px 0;
     }
 
     .strippy-purchase-type button {
-      min-height: 96px;
+      min-height: 72px;
       padding: 14px 10px;
       border: 1.5px solid #d9bff7;
       border-radius: 14px;
@@ -4894,27 +5078,35 @@
       display: grid;
       grid-template-columns: minmax(0, 680px) minmax(260px, 360px);
       align-items: center;
-      gap: 70px;
+      gap: 64px;
       width: min(100% - 36px, 1180px);
       margin: 78px auto 0;
       padding-bottom: 12px;
     }
 
-    .strippy-before-image {
-      border-radius: 10px;
+    .strippy-before-image,
+    .strippy-smile-image,
+    .strippy-scar-image {
+      border-radius: 18px;
       overflow: hidden;
-      background: #eadcf6;
+      background: #f6f1ee;
+      box-shadow: 0 18px 46px rgba(64, 38, 84, .08);
     }
 
-    .strippy-before-image img {
+    .strippy-before-image img,
+    .strippy-smile-image img,
+    .strippy-scar-image img {
+      display: block;
       width: 100%;
       aspect-ratio: 1 / 1;
       object-fit: cover;
       object-position: center;
     }
 
-    .strippy-before-copy {
-      max-width: 310px;
+    .strippy-before-copy,
+    .strippy-smile-copy,
+    .strippy-scar-copy {
+      max-width: 360px;
     }
 
     .strippy-before-eyebrow {
@@ -4927,7 +5119,9 @@
       text-transform: uppercase;
     }
 
-    .strippy-before-copy h2 {
+    .strippy-before-copy h2,
+    .strippy-smile-copy h2,
+    .strippy-scar-copy h2 {
       margin: 0 0 24px;
       color: #050505;
       font-family: Inter, ui-sans-serif, system-ui, sans-serif;
@@ -4941,7 +5135,9 @@
       font-style: italic;
     }
 
-    .strippy-before-copy p:last-child {
+    .strippy-before-copy p:last-child,
+    .strippy-smile-copy p:last-child,
+    .strippy-scar-copy p:last-child {
       margin: 0;
       color: #242027;
       font-size: 18px;
@@ -4954,86 +5150,299 @@
       grid-template-columns: minmax(220px, 250px) minmax(0, 720px);
       align-items: center;
       justify-content: center;
-      gap: 42px;
-      width: min(100% - 36px, 1100px);
+      gap: 64px;
+      width: min(100% - 36px, 1180px);
       margin: 72px auto 0;
-    }
-
-    .strippy-smile-copy h2 {
-      margin: 0 0 26px;
-      color: #050505;
-      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-      font-size: clamp(32px, 3vw, 42px);
-      font-weight: 900;
-      line-height: 1.16;
     }
 
     .strippy-smile-copy h2 span {
       color: #a873e5;
     }
 
-    .strippy-smile-copy p:last-child {
-      margin: 0;
-      color: #111;
-      font-size: 19px;
-      line-height: 1.52;
-      letter-spacing: .04em;
-    }
-
-    .strippy-smile-image {
-      border-radius: 10px;
-      overflow: hidden;
-      background: #eadcf6;
-    }
-
-    .strippy-smile-image img {
-      width: 100%;
-      aspect-ratio: 1.26 / 1;
-      object-fit: cover;
-      object-position: center;
-    }
-
     .strippy-scar-section {
       display: grid;
       grid-template-columns: minmax(0, 680px) minmax(260px, 360px);
       align-items: center;
-      gap: 70px;
+      gap: 64px;
       width: min(100% - 36px, 1180px);
       margin: 72px auto 0;
     }
 
-    .strippy-scar-image {
-      border-radius: 10px;
-      overflow: hidden;
-      background: #eadcf6;
+    .strippy-facebook-review {
+      position: relative;
+      width: min(100% - 36px, 680px);
+      margin: 76px auto 0;
+      padding: 18px;
+      border-radius: 18px;
+      background: #f0f2f5;
     }
 
-    .strippy-scar-image img {
+    .strippy-facebook-track {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .strippy-facebook-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .strippy-facebook-card {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      padding: 12px 0 0;
+      border: 1px solid #dddfe2;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .08);
+    }
+
+    .strippy-facebook-nav {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 0, 0, .08);
+      border-radius: 50%;
+      background: #fff;
+      color: #1c1e21;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .15);
+      font-size: 30px;
+      line-height: 1;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .strippy-facebook-nav.prev {
+      left: -8px;
+    }
+
+    .strippy-facebook-nav.next {
+      right: -8px;
+    }
+
+    .strippy-facebook-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 0 12px 10px;
+    }
+
+    .strippy-facebook-avatar {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      background: #e4e6eb;
+    }
+
+    .strippy-facebook-author {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .strippy-facebook-author strong {
+      display: block;
+      color: #050505;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .strippy-facebook-author span {
+      display: block;
+      margin-top: 2px;
+      color: #65676b;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .strippy-facebook-menu {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: #65676b;
+      font-size: 18px;
+      line-height: 1;
+      cursor: default;
+    }
+
+    .strippy-facebook-text {
+      margin: 0 12px 12px;
+      color: #050505;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.34;
+    }
+
+    .strippy-facebook-photo {
+      overflow: hidden;
+      border-top: 1px solid #dddfe2;
+      border-bottom: 1px solid #dddfe2;
+      border-radius: 0;
+      background: #e4e6eb;
+    }
+
+    .strippy-facebook-photo img {
+      display: block;
       width: 100%;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 1.45 / 1;
       object-fit: cover;
       object-position: center;
     }
 
-    .strippy-scar-copy {
-      max-width: 310px;
+    .strippy-facebook-photo.placeholder {
+      display: grid;
+      place-items: center;
+      min-height: 360px;
+      background: linear-gradient(135deg, #f6f1ee, #eadcf6);
+      color: #6b6471;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
     }
 
-    .strippy-scar-copy h2 {
-      margin: 0 0 24px;
+    .strippy-facebook-meta,
+    .strippy-facebook-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #65676b;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .strippy-facebook-meta {
+      margin: 0 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #ced0d4;
+    }
+
+    .strippy-facebook-reactions {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .strippy-facebook-reactions i {
+      display: inline-grid;
+      place-items: center;
+      width: 19px;
+      height: 19px;
+      margin-right: -3px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: transparent;
+      font-style: normal;
+      overflow: hidden;
+    }
+
+    .strippy-facebook-reactions img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .strippy-facebook-actions {
+      margin: 0 12px;
+      padding: 4px 0;
+      border-bottom: 1px solid #ced0d4;
+    }
+
+    .strippy-facebook-actions span {
+      flex: 1;
+      padding: 8px 4px;
+      border-radius: 6px;
+      text-align: center;
+      color: #65676b;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .strippy-facebook-comments {
+      display: grid;
+      gap: 8px;
+      padding: 10px 12px 12px;
+    }
+
+    .strippy-facebook-more {
+      justify-self: start;
+      border: 0;
+      background: transparent;
+      color: #65676b;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 0;
+    }
+
+    .strippy-facebook-comment {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .strippy-facebook-comment-avatar {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #e4e6eb;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .strippy-facebook-comment > div {
+      width: fit-content;
+      max-width: 92%;
+      padding: 8px 10px;
+      border-radius: 18px;
+      background: #f0f2f5;
+    }
+
+    .strippy-facebook-comments strong {
+      display: block;
+      margin-bottom: 2px;
       color: #050505;
-      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-      font-size: clamp(34px, 3vw, 43px);
-      font-weight: 900;
-      line-height: 1.12;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
     }
 
-    .strippy-scar-copy p:last-child {
+    .strippy-facebook-comments p {
       margin: 0;
-      color: #242027;
-      font-size: 18px;
-      line-height: 1.6;
-      letter-spacing: .04em;
+      color: #050505;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.25;
+    }
+
+    .strippy-facebook-comments small {
+      display: block;
+      margin-top: 5px;
+      color: #65676b;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .strippy-why-section {
@@ -5259,6 +5668,14 @@
       .strippy-smile-section {
         grid-template-columns: 1fr;
         gap: 24px;
+      }
+
+      .strippy-smile-image {
+        order: 1;
+      }
+
+      .strippy-smile-copy {
+        order: 2;
       }
 
       .strippy-scar-section {
@@ -5658,7 +6075,7 @@
       }
 
       .strippy-purchase-type button {
-        min-height: 82px;
+        min-height: 68px;
         font-size: 14px;
       }
 
@@ -5714,6 +6131,51 @@
       .strippy-scar-copy p:last-child {
         font-size: 15.5px;
         letter-spacing: 0;
+      }
+
+      .strippy-facebook-review {
+        width: min(100% - 24px, 520px);
+        margin-top: 46px;
+        padding: 10px;
+        border-radius: 14px;
+      }
+
+      .strippy-facebook-card {
+        padding: 10px 0 0;
+        border-radius: 8px;
+      }
+
+      .strippy-facebook-text {
+        font-size: 14px;
+        line-height: 1.34;
+      }
+
+      .strippy-facebook-photo img {
+        aspect-ratio: 1 / 1;
+      }
+
+      .strippy-facebook-photo.placeholder {
+        min-height: 300px;
+      }
+
+      .strippy-facebook-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 25px;
+      }
+
+      .strippy-facebook-nav.prev {
+        left: -4px;
+      }
+
+      .strippy-facebook-nav.next {
+        right: -4px;
+      }
+
+      .strippy-facebook-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
       }
 
       .strippy-why-section {

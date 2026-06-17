@@ -5,35 +5,15 @@ const landingMarkup = String.raw`
 <div class="page">
     <!-- Sticky header with conversion CTA -->
     <header class="site-header">
-      <div class="promo-banner" aria-label="Promotion STRIPPY -60%">
-        <div class="promo-main">
-          <span class="promo-exclusive">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13.2 13.2 4H20v6.8L10.8 20 4 13.2Z"></path><path d="M16.5 7.5h.01"></path></svg>
-            Offre exclusive
-          </span>
-          <div class="promo-offer">
-            <span>Notre plus grande offre !</span>
-            <strong>-60%</strong>
-          </div>
-          <a class="promo-cta" href="#offre">Je profite de l'offre</a>
-          <div class="promo-limited">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 7v5l3 2"></path></svg>
-            <span>Offre limitée !</span>
-          </div>
-          <span class="timer-boxes promo-countdown" aria-live="polite">
-            <span class="timer-box"><span data-countdown-hours>00</span><small>HRS</small></span>
-            <span class="timer-separator">:</span>
-            <span class="timer-box"><span data-countdown-minutes>55</span><small>MIN</small></span>
-            <span class="timer-separator">:</span>
-            <span class="timer-box"><span data-countdown-seconds>01</span><small>SEC</small></span>
-          </span>
-        </div>
-        <div class="promo-proof">
-          <span class="promo-proof-icon" aria-hidden="true">✓</span>
-          <span>Des milliers de clientes satisfaites font déjà confiance à notre solution</span>
-          <span class="promo-stars" aria-hidden="true">★★★★★</span>
-          <strong>4,7/5</strong>
-        </div>
+      <div class="promo-banner compact-promo" aria-label="Offre STRIPPY limitée">
+        <span class="compact-promo-label">L'offre spéciale se termine dans</span>
+        <span class="timer-boxes promo-countdown compact-promo-countdown" aria-live="polite">
+          <span class="timer-box"><span data-countdown-hours>00</span><small>HRS</small></span>
+          <span class="timer-separator">:</span>
+          <span class="timer-box"><span data-countdown-minutes>55</span><small>MIN</small></span>
+          <span class="timer-separator">:</span>
+          <span class="timer-box"><span data-countdown-seconds>01</span><small>SEC</small></span>
+        </span>
       </div>
       <nav class="container nav" aria-label="Navigation principale">
         <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" data-menu-toggle>
@@ -69,15 +49,15 @@ const landingMarkup = String.raw`
         </div>
         <div class="container hero-grid">
           <div class="hero-copy">
-            <div class="hero-badge">Lauréat Prix Beauté 2025</div>
-            <h1 id="hero-title">Lissez vos rides pendant votre sommeil</h1>
-            <div class="rating" aria-label="Noté 4.7 sur 5 par plus de 18 067 clientes">
+            <div class="hero-badge">Certifié par nos dermatologues</div>
+            <h1 id="hero-title">Atténuez vos rides en 7 jours</h1>
+            <div class="rating" aria-label="Noté 4.5 sur 5 par 412 clientes">
               <span class="stars-img-wrap rating-47" aria-hidden="true"><img class="stars-img" src="/images/stars-5.png" alt="" /></span>
-              <span>Noté 4.7/5 par 18 067+ avis</span>
+              <span>Noté 4.5/5 par 412 avis</span>
             </div>
             <p>Le ruban en silicone médical recommandé comme alternative douce au Botox.</p>
             <div class="cta-row">
-              <a class="btn" href="#offre">Profiter des -60% <span aria-hidden="true">&rarr;</span></a>
+              <a class="btn" href="#offre">Profiter des -30% <span aria-hidden="true">&rarr;</span></a>
             </div>
             <div class="hero-guarantees" aria-label="Garanties STRIPPY">
               <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-2.8 8.6-7 10-4.2-1.4-7-5.4-7-10V6l7-3Z"></path><path d="M9 12l2 2 4-4"></path></svg>Garantie satisfait ou remboursé 99 jours</span>
@@ -113,10 +93,10 @@ const landingMarkup = String.raw`
           <div class="section-head">
             <p class="eyebrow">Avis clients vérifiés</p>
             <h2 id="reviews-title">Nos clientes en parlent mieux que nous</h2>
-            <div class="reviews-score" aria-label="Excellent 4.7 sur 5, basé sur 18 067 avis clients">
-              <strong>Excellent 4.7 / 5 <span class="stars-img-wrap rating-47" aria-hidden="true"><img class="stars-img" src="/images/stars-5.png" alt="" /></span></strong>
-              <span class="reviews-count-desktop">Basé sur 18 067 avis clients</span>
-              <span class="reviews-count-mobile">based on 18,067 reviews</span>
+            <div class="reviews-score" aria-label="Excellent 4.5 sur 5, basé sur 412 avis clients">
+              <strong>Excellent 4.5 / 5 <span class="stars-img-wrap rating-47" aria-hidden="true"><img class="stars-img" src="/images/stars-5.png" alt="" /></span></strong>
+              <span class="reviews-count-desktop">Basé sur 412 avis clients</span>
+              <span class="reviews-count-mobile">basé sur 412 avis</span>
             </div>
           </div>
           <article class="mobile-feature-review" aria-label="Avis client mis en avant">
@@ -190,7 +170,7 @@ const landingMarkup = String.raw`
           <div class="product-buy-grid">
             <div class="product-gallery" aria-label="Galerie produit STRIPPY">
               <div class="product-main">
-                <img class="product-main-image" data-product-main-image src="/images/1.png" alt="STRIPPY Patchs Beauté en Silicone - image produit 1">
+                <img class="product-main-image" data-product-main-image src="/images/1.png" alt="STRIPPY Patchs naturels anti-rides - image produit 1">
               </div>
               <div class="product-thumbs" aria-label="Miniatures produit">
                 <button class="thumb-arrow" type="button" data-product-prev aria-label="Image précédente">‹</button>
@@ -209,10 +189,10 @@ const landingMarkup = String.raw`
             </div>
 
             <div class="product-details">
-              <h2 id="product-title">Strippy™ Patchs Beauté en Silicone</h2>
+              <h2 id="product-title">Strippy Patchs naturels anti-rides</h2>
               <div class="product-price">
-                <s>69,90 €</s>
-                <strong>29,90 €</strong>
+                <s>60,95 €</s>
+                <strong>23,95 €</strong>
               </div>
               <span class="product-sale-badge">-60%</span>
               <p class="medical-line"><span aria-hidden="true">◎</span> Silicone médical réutilisable</p>
@@ -236,7 +216,7 @@ const landingMarkup = String.raw`
             </div>
             <div class="proof-row">
               <div class="proof-circle" style="--percent: 90">90%</div>
-              <p>Ont trouvé Strippy™ <strong>plus facile à garder dans leur routine</strong> que les crèmes anti-rides déjà testées.</p>
+              <p>Ont trouvé Strippy <strong>plus facile à garder dans leur routine</strong> que les crèmes anti-rides déjà testées.</p>
             </div>
             <div class="proof-row">
               <div class="proof-circle" style="--percent: 90">90%</div>

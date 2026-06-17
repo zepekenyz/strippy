@@ -14,7 +14,7 @@ export function links() {
 
 export function meta() {
   return [
-    {title: 'STRIPPY - Patchs Beauté en Silicone'},
+    {title: 'STRIPPY - Patchs naturels anti-rides'},
     {
       name: 'description',
       content:
