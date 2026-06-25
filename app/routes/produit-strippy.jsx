@@ -151,23 +151,36 @@ export default function ProductStrippyPage() {
             <div><span>✨</span><p>Maintient l'hydratation</p></div>
           </div>
 
+          <div className="strippy-routine-offer" aria-label="Recommandation de routine">
+            <span>Routine recommandée</span>
+            <p>
+              Pour profiter pleinement de STRIPPY, prévoyez assez de bandes pour
+              traiter vos zones ciblées pendant plusieurs nuits d'affilée.
+            </p>
+            <ul>
+              <li>1 pack : découverte ciblée</li>
+              <li>2 packs : routine complète la plus choisie</li>
+              <li>3 + 1 offert : stock confort + cadeau mystère</li>
+            </ul>
+          </div>
+
           <div className="strippy-pack-options" role="radiogroup" aria-label="Choisir un pack">
             <button className="strippy-pack" type="button" role="radio" aria-checked="false" data-pack-name="1 Pack" data-pack-size="1 Pack" data-pack-price="29,99 €" data-pack-old-price="42,99 €" data-pack-discount="13,00 €" data-pack-image="/images/1 pack.png">
               <span className="strippy-pack-media"><img src="/images/1 pack.png" alt="" /></span>
-              <span className="strippy-pack-copy"><span><strong>1 PACK</strong><b>30 nuits d'utilisation</b></span><i>Vous économisez 13€</i></span>
+              <span className="strippy-pack-copy"><span><strong>1 PACK</strong><b>30 nuits d'utilisation</b></span><i>Découverte ciblée</i></span>
               <span className="strippy-pack-price"><strong>29,99€</strong><small>42,99€</small></span>
             </button>
 
             <button className="strippy-pack popular active" type="button" role="radio" aria-checked="true" data-shopify-variant-id="gid://shopify/ProductVariant/56815940567364" data-pack-name="2 Pack" data-pack-size="2-Pack" data-pack-price="39,99 €" data-pack-old-price="56,99 €" data-pack-discount="17,00 €" data-pack-image="/images/2 pack.png">
               <span className="strippy-pack-media"><img src="/images/2 pack.png" alt="" /></span>
-              <span className="strippy-pack-copy"><span><strong>2 PACKS</strong><b>60 nuits d'utilisation</b></span><i>Vous économisez 17€</i></span>
+              <span className="strippy-pack-copy"><span><strong>2 PACKS</strong><b>60 nuits d'utilisation</b></span><i>Routine complète recommandée</i></span>
               <span className="strippy-pack-price"><strong>39,99€</strong><small>56,99€</small></span>
               <em>⭐⭐ Plus populaire</em>
             </button>
 
             <button className="strippy-pack value" type="button" role="radio" aria-checked="false" data-shopify-variant-id="gid://shopify/ProductVariant/56815940895044" data-pack-name="3 Pack + 1 offert" data-pack-size="3-Pack + 1 offert" data-pack-price="59,99 €" data-pack-old-price="85,99 €" data-pack-discount="26,00 €" data-pack-image="/images/3 pack.png">
               <span className="strippy-pack-media"><img src="/images/3 pack.png" alt="" /></span>
-              <span className="strippy-pack-copy"><span><strong>3 PACKS + 1 OFFERT</strong><b>120 nuits d'utilisation</b></span><i>Vous économisez 26€</i></span>
+              <span className="strippy-pack-copy"><span><strong>3 PACKS + 1 OFFERT</strong><b>120 nuits + cadeau mystère</b></span><i>Cadeau mystère inclus</i></span>
               <span className="strippy-pack-price"><strong>59,99€</strong><small>85,99€</small></span>
               <em>Meilleure valeur</em>
             </button>

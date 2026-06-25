@@ -4285,6 +4285,63 @@
       line-height: 1.22;
     }
 
+    .strippy-routine-offer {
+      margin: 0 0 16px;
+      padding: 15px;
+      border: 1px solid rgba(244, 164, 232, .42);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(244, 164, 232, .16), rgba(255, 255, 255, .92));
+      color: #221b24;
+    }
+
+    .strippy-routine-offer span {
+      display: inline-flex;
+      margin-bottom: 7px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f4a4e8;
+      color: #4f174d;
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .strippy-routine-offer p {
+      margin: 0 0 10px;
+      color: #3a303d;
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.42;
+    }
+
+    .strippy-routine-offer ul {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .strippy-routine-offer li {
+      position: relative;
+      padding-left: 18px;
+      color: #302633;
+      font-size: 12.5px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .strippy-routine-offer li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #a873e5;
+      font-weight: 950;
+    }
+
     .strippy-pack-options {
       display: grid;
       gap: 12px;
